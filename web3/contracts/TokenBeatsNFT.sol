@@ -5,8 +5,8 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TokenBeatsNFT is ERC721, Ownable {
-    uint256 immutable beatId;
-    uint256 immutable maxSupply;
+    uint256 public immutable beatId;
+    uint256 public immutable maxSupply;
     uint256 public tokenIds;
     string public uri;
 

@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -12,7 +11,7 @@ import "./TokenBeatsNFT.sol";
 /// @author The name of the author
 /// @notice Explain to an end user what this does
 /// @dev Explain to a developer any extra details
-contract TokenBeatsFactory is ERC721, Ownable, ReentrancyGuard {
+contract TokenBeatsFactory is ReentrancyGuard {
     AggregatorV3Interface internal priceFeed;
 
     struct Beat {
@@ -30,14 +29,18 @@ contract TokenBeatsFactory is ERC721, Ownable, ReentrancyGuard {
     uint256 public beatsCounter;
 
     //EVENTS
-    event beatListed(address indexed producer, uint256 beatId);
+    event beatListed(
+        address indexed producer,
+        uint256 beatId,
+        address tokenContract
+    );
     event beatBought(
         address indexed producer,
         address indexed buyer,
         uint256 beatId
     );
 
-    constructor(string memory name, string memory symbol) ERC721(name, symbol) {
+    constructor() {
         priceFeed = AggregatorV3Interface(
             0x694AA1769357215DE4FAC081bf1f309aDC325306
         );
@@ -63,7 +66,7 @@ contract TokenBeatsFactory is ERC721, Ownable, ReentrancyGuard {
             _uri
         );
 
-        emit beatListed(msg.sender, _beatId);
+        emit beatListed(msg.sender, _beatId, address(beat.tokenContract));
         return beatsCounter++;
     }
 
@@ -84,6 +87,10 @@ contract TokenBeatsFactory is ERC721, Ownable, ReentrancyGuard {
         beat.sales++;
 
         beat.tokenContract.mint(msg.sender);
+        //TODO transfer funds to producer
+        address producer = beat.producer;
+        (bool sent, ) = payable(producer).call{value: msg.value}("");
+        require(sent, "Funds not sent");
     }
 
     function getEthPrice(uint256 _usdPrice) public view returns (uint256) {
