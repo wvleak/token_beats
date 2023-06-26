@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
@@ -11,7 +12,7 @@ import "./TokenBeatsNFT.sol";
 /// @author The name of the author
 /// @notice Explain to an end user what this does
 /// @dev Explain to a developer any extra details
-contract TokenBeatsFactory is ERC721, Ownable {
+contract TokenBeatsFactory is ERC721, Ownable, ReentrancyGuard {
     AggregatorV3Interface internal priceFeed;
 
     struct Beat {
@@ -66,7 +67,10 @@ contract TokenBeatsFactory is ERC721, Ownable {
         return beatsCounter++;
     }
 
-    function buyBeat(uint256 _beatId) external payable {
+    /// @notice Mint a copy of a listed beat
+    /// @dev beat ids are stored in a cloud database
+    /// @param _beatId the Id of the beat to purchase
+    function buyBeat(uint256 _beatId) external payable nonReentrant {
         require(_beatId < beatsCounter, "Beat does not exist"); //check if the beat has been inserted
 
         Beat storage beat = beats[_beatId];
@@ -81,8 +85,6 @@ contract TokenBeatsFactory is ERC721, Ownable {
 
         beat.tokenContract.mint(msg.sender);
     }
-
-    //View functions
 
     function getEthPrice(uint256 _usdPrice) public view returns (uint256) {
         (
