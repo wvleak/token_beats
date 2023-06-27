@@ -6,7 +6,12 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gradientColorStops: {
+        "blue-dark": "#001e4e",
+        "blue-light": "#0f6fd4",
+      },
+    },
   },
   plugins: [],
 };
