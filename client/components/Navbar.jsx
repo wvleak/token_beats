@@ -2,8 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useConnect, useMetamask } from "@thirdweb-dev/react";
+import { ConnectWallet } from "@thirdweb-dev/react";
+import { useStateContext } from "../context";
 
 const Navbar = () => {
+  const { address, connect } = useStateContext();
+
   return (
     <nav className="flex justify-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
@@ -19,13 +24,23 @@ const Navbar = () => {
         <img src="/assets/search.svg" className="absolute ml-2" />
         <input
           type="text"
-          placeholder="Search for campaigns"
+          placeholder="Search for beats"
           className="h-[50px]  pl-10 bg-dark-charcoal"
         />
       </div>
       <div className="text-white mr-[100px] ">
-        <button className="bg-gradient-to-r from-purple-800 to-pink-500 mt-4 h-[50px] w-[130px] rounded-md">
-          Button
+        {/* <ConnectWallet
+          theme="dark"
+          btnTitle="Connect"
+          className="customWallet"
+        /> */}
+        <button
+          onClick={() => {
+            connect();
+          }}
+          className="bg-gradient-to-r from-purple-800 to-pink-500 mt-4 h-[50px] w-[130px] rounded-md"
+        >
+          Connect
         </button>
       </div>
     </nav>

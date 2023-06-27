@@ -11,3 +11,23 @@
   padding: 120px 24px 160px 24px;
   pointer-events: none;
 }
+
+.customWallet {
+  /* background: rgb(131, 58, 180) !important;
+  background: linear-gradient(
+    171deg,
+    rgba(111, 35, 209, 1) 0%,
+    rgba(252, 70, 199, 1) 100%
+  ) !important; */
+  background: rgb(49, 35, 209) !important;
+  background: linear-gradient(
+    138deg,
+    rgba(49, 35, 209, 1) 0%,
+    rgba(164, 37, 200, 1) 86%,
+    rgba(255, 38, 192, 1) 100%
+  ) !important;
+  color: white !important;
+  font-weight: 300 !important;
+  margin-top: 20px !important;
+  height: 50px !important;
+}
