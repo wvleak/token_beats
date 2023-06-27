@@ -15,17 +15,19 @@ const Navbar = () => {
           className="object-contain ml-10"
         />
       </Link>
-      <div className="flex justify-end">
-        <input type="text" placeholder="Search for campaigns" className="" />
-        <div className="w-[72px] h-full rounded-[20px] bg-[#4acd8d] flex justify-center items-center cursor-pointer">
-          <img
-            src="/assets/logo.png"
-            alt="search"
-            className="w-[15px] h-[15px] object-contain"
-          />
-        </div>
+      <div className="relative flex items-center">
+        <img src="/assets/search.svg" className="absolute ml-2" />
+        <input
+          type="text"
+          placeholder="Search for campaigns"
+          className="h-[50px]  pl-10 bg-dark-charcoal"
+        />
       </div>
-      <div className="text-white mr-[100px]">Button</div>
+      <div className="text-white mr-[100px] ">
+        <button className="bg-gradient-to-r from-purple-800 to-pink-500 mt-4 h-[50px] w-[130px] rounded-md">
+          Button
+        </button>
+      </div>
     </nav>
   );
 };

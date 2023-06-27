@@ -11,6 +11,13 @@ module.exports = {
         "blue-dark": "#001e4e",
         "blue-light": "#0f6fd4",
       },
+      colors: {
+        "dark-charcoal": "#333333",
+        "granite-gray": "#666666",
+        "spanish-gray": "#999999",
+        "chinese-silver": "#CCCCCC",
+        "bright-gray": "#EEEEEE",
+      },
     },
   },
   plugins: [],
