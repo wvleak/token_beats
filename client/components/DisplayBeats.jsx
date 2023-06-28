@@ -1,6 +1,6 @@
 import React from "react";
 
-const DisplayBeats = () => {
+const DisplayBeats = (title, isLoading, beats) => {
   return <div>DisplayBeats</div>;
 };
 
