@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useStateContext } from "../context";
 
 const SellBeats = () => {
-  const { publishBeat } = useStateContext();
+  const { address, publishBeat } = useStateContext();
   const [form, setForm] = useState({
     title: "",
     maxSupply: "",
@@ -20,6 +20,7 @@ const SellBeats = () => {
     e.preventDefault();
 
     await publishBeat(form);
+    //add publisher in database
   };
 
   return (
