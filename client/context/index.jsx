@@ -11,7 +11,9 @@ import { ethers } from "ethers";
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract("TODO");
+  const { contract } = useContract(
+    "0x805817A89535B3556f0B6d78F01Aa7a0e1891F90"
+  );
   const { mutateAsync: listBeat, isLoading } = useContractWrite(
     contract,
     "listBeat"

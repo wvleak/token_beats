@@ -23,6 +23,7 @@ contract TokenBeatsFactory is ReentrancyGuard {
         uint256 sales;
         string uri;
         TokenBeatsNFT tokenContract;
+        //TODO add tags
     }
 
     mapping(uint256 => Beat) private beats;

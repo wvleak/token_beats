@@ -14,12 +14,17 @@ const Beats = () => {
     const data = await getBeats();
     setBeats(data);
     setIsLoading(false);
+    console.log(beats);
   };
   useEffect(() => {
     if (contract) fetchBeats();
   }, [address, contract]);
 
-  return <DisplayBeats title="All Beats" isLoading={isLoading} beats={beats} />;
+  return (
+    <div>
+      <DisplayBeats title="All Beats" isLoading={isLoading} beats={beats} />
+    </div>
+  );
 };
 
 export default Beats;
