@@ -11,28 +11,19 @@ import { ethers } from "ethers";
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract(
-    "0x7d31D88Af5A1f277f371C8e8292C1C2d56D73F8e"
-  );
-  const { mutateAsync: createCampaign, isLoading } = useContractWrite(
+  const { contract } = useContract("TODO");
+  const { mutateAsync: listBeat, isLoading } = useContractWrite(
     contract,
-    "createCampaign"
+    "listBeat"
   );
 
   const address = useAddress();
   const connect = useMetamask();
 
-  const publishCampaign = async (form) => {
+  const publishBeat = async (form) => {
     try {
-      const data = await createCampaign({
-        args: [
-          address, // owner
-          form.title, // title
-          form.description, // description
-          form.target,
-          new Date(form.deadline).getTime(), // deadline,
-          form.image,
-        ],
+      const data = await listBeat({
+        args: [form.title, form.maxSupply, form.usdPrice, form.uri],
       });
 
       console.log("contract call success", data);
@@ -40,71 +31,55 @@ export const StateContextProvider = ({ children }) => {
       console.log("contract call failure", error);
     }
   };
+  const buyBeat = async (beatId, price) => {
+    try {
+      const data = await contract.call("buyBeat", [beatId], {
+        value: ethers.utils.parseEther(price),
+      });
+      console.log("contract call success", data);
+    } catch (error) {
+      console.log("contract call failure", error);
+    }
+  };
 
-  const getCampaigns = async () => {
-    const campaigns = await contract.call("getCampaigns");
+  const getBeats = async () => {
+    const beats = await contract.call("getBeats");
 
-    const parsedCampaigns = campaigns.map((campaign, i) => ({
-      owner: campaign.owner,
-      title: campaign.title,
-      description: campaign.description,
-      target: ethers.utils.formatEther(campaign.target.toString()),
-      deadline: campaign.deadline.toNumber(),
-      amountCollected: ethers.utils.formatEther(
-        campaign.amountCollected.toString()
-      ),
-      image: campaign.image,
-      pId: i,
+    const parsedBeats = beats.map((beat) => ({
+      id: beat.beatId,
+      name: beat.name,
+      producer: beat.producer,
+      maxSupply: beat.maxSupply,
+      usdPrice: beat.usdPrice,
+      sales: beat.sales,
+      uri: beat.uri,
     }));
 
-    return parsedCampaigns;
+    return parsedBeats;
   };
 
-  const getUserCampaigns = async () => {
-    const allCampaigns = await getCampaigns();
+  const getProducerBeats = async (producerAddress) => {
+    const allBeats = await getBeats();
 
-    const filteredCampaigns = allCampaigns.filter(
-      (campaign) => campaign.owner === address
+    const filteredBeats = allBeats.filter(
+      (beat) => beat.producer === producerAddress
     );
 
-    return filteredCampaigns;
+    return filteredBeats;
   };
 
-  const donate = async (pId, amount) => {
-    const data = await contract.call("donateToCampaign", [pId], {
-      value: ethers.utils.parseEther(amount),
-    });
-
-    return data;
-  };
-
-  const getDonations = async (pId) => {
-    const donations = await contract.call("getDonators", [pId]);
-    const numberOfDonations = donations[0].length;
-
-    const parsedDonations = [];
-
-    for (let i = 0; i < numberOfDonations; i++) {
-      parsedDonations.push({
-        donator: donations[0][i],
-        donation: ethers.utils.formatEther(donations[1][i].toString()),
-      });
-    }
-
-    return parsedDonations;
-  };
+  //TODO get owned beats
 
   return (
     <StateContext.Provider
       value={{
         address,
         contract,
-        createCampaign: publishCampaign,
         connect,
-        getCampaigns,
-        getDonations,
-        getUserCampaigns,
-        donate,
+        publishBeat,
+        buyBeat,
+        getBeats,
+        getProducerBeats,
       }}
     >
       {children}

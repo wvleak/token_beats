@@ -16,11 +16,12 @@ contract TokenBeatsFactory is ReentrancyGuard {
 
     struct Beat {
         uint256 beatId;
-        string name;
+        string name; //TODO rename title
         address producer;
         uint256 maxSupply; //maxSupply of 0 is an infinite supply
         uint256 usdPrice;
         uint256 sales;
+        string uri;
         TokenBeatsNFT tokenContract;
     }
 
@@ -46,6 +47,10 @@ contract TokenBeatsFactory is ReentrancyGuard {
         );
     }
 
+    /// @notice Explain to an end user what this does
+    /// @dev Explain to a developer any extra details
+    /// @param _name name of the beat
+    /// @return beatsCounter the listed beat id
     function listBeat(
         string calldata _name,
         uint256 _maxSupply,
@@ -59,6 +64,7 @@ contract TokenBeatsFactory is ReentrancyGuard {
         beat.producer = msg.sender;
         beat.maxSupply = _maxSupply;
         beat.usdPrice = _usdPrice;
+        beat.uri = _uri;
         beat.tokenContract = new TokenBeatsNFT(
             _name,
             _maxSupply,
