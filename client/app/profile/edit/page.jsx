@@ -31,9 +31,13 @@ const Profile = () => {
         onChange={(e) => setUser({ ...user, username: e.target.value })}
       />
       <input
+        type="text"
+        onChange={(e) => setUser({ ...user, image: e.target.value })}
+      />
+      {/* <input
         type="file"
         onChange={(e) => setUser({ ...user, image: e.target.files[0] })}
-      />
+      /> */}
       <button className="bg-white" type="submit">
         submit
       </button>
