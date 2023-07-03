@@ -15,6 +15,9 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
+        {/* <div className="main">
+          <div className="gradient" />
+        </div> */}
         <ThirdwebProvider
           supportedWallets={[
             metamaskWallet(),
@@ -24,12 +27,12 @@ const RootLayout = ({ children }) => {
           activeChain={Sepolia}
         >
           <StateContextProvider>
-            <div className="w-full h-full absolute inset-0 bg-black">
-              <main className="app">
-                <Navbar />
-                {children}
-              </main>
-            </div>
+            {/* <div className="w-full h-full absolute inset-0 bg-black"> */}
+            <main className="app">
+              <Navbar />
+              {children}
+            </main>
+            {/* </div> */}
           </StateContextProvider>
         </ThirdwebProvider>
       </body>

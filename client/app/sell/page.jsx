@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useStateContext } from "../context";
+import { useStateContext } from "../../context";
 
 const SellBeats = () => {
   const { address, publishBeat } = useStateContext();
