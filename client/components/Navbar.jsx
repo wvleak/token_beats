@@ -23,7 +23,7 @@ const Navbar = () => {
           className="object-contain ml-10 max-w-[120px] h-auto"
         />
       </Link>
-      <div className="relative flex items-center w-[50%] max-w-[500px] h-[50px] rounded-lg bg-dark-charcoal mt-4 ml-5 md: lg:mr-[30%] ">
+      <div className="relative flex items-center w-[50%] max-w-[500px] sm:min-w-[200px] h-[50px] rounded-lg bg-dark-charcoal mt-4 ml-5 md: lg:mr-[30%]">
         <img src="/assets/search.svg" className="absolute ml-2" />
         <input
           type="text"
@@ -60,14 +60,14 @@ const Navbar = () => {
       <div className="sm:hidden">
         <img
           src="/assets/menu.svg"
-          className="w-[60px] h-[60px] mt-4"
+          className="min-w-[60px] h-[60px] mt-4"
           alt="menu"
           onClick={() => setToggleDrawer((prev) => !prev)}
         />
         <div
           className={`absolute top-[60px] right-0 left-0 bg-[#1c1c24] z-10 shadow-secondary py-4 
         ${
-          !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"
+          !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-10"
         } transition-all duration-700`}
         >
           <ul className="mb-4">
@@ -90,7 +90,7 @@ const Navbar = () => {
               title={address ? "Sell beats" : "Connect"}
               styles={
                 address
-                  ? "bg-[#1dc071]"
+                  ? "bg-gradient-to-r from-red-500 to-orange-600"
                   : "bg-gradient-to-r from-purple-800 to-pink-500"
               }
               handleClick={() => {
