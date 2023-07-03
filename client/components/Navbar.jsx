@@ -23,7 +23,7 @@ const Navbar = () => {
           className="object-contain ml-10 max-w-[120px] h-auto"
         />
       </Link>
-      <div className="relative flex items-center w-[50%] max-w-[500px] sm:min-w-[200px] h-[50px] rounded-lg bg-dark-charcoal mt-4 ml-5 md: lg:mr-[30%]">
+      <div className="relative flex items-center w-[50%] max-w-[500px] sm:min-w-[200px] h-[45px] rounded-lg bg-dark-charcoal mt-5 ml-5 md: lg:mr-[30%]">
         <img src="/assets/search.svg" className="absolute ml-2" />
         <input
           type="text"
@@ -38,7 +38,7 @@ const Navbar = () => {
           styles={
             address
               ? "bg-gradient-to-r from-red-500 to-orange-600"
-              : "bg-gradient-to-r from-purple-800 to-pink-500"
+              : "bg-gradient-to-r from-pink-500 to-purple-600"
           }
           handleClick={() => {
             if (address) router.push("/sell");
@@ -91,7 +91,7 @@ const Navbar = () => {
               styles={
                 address
                   ? "bg-gradient-to-r from-red-500 to-orange-600"
-                  : "bg-gradient-to-r from-purple-800 to-pink-500"
+                  : "bg-gradient-to-r from-pink-500 to-purple-600"
               }
               handleClick={() => {
                 if (address) router.push("/sell");
