@@ -112,7 +112,7 @@ contract TokenBeatsFactory is ReentrancyGuard {
         return (_usdPrice * 10 ** 18) / convertIntToUint(price / 1e8);
     }
 
-    function getBeats() external view returns (Beat[] memory) {
+    function getAllBeats() external view returns (Beat[] memory) {
         Beat[] memory allBeats = new Beat[](beatsCounter);
 
         for (uint256 i; i < beatsCounter; ++i) {
@@ -120,6 +120,27 @@ contract TokenBeatsFactory is ReentrancyGuard {
         }
 
         return allBeats;
+    }
+
+    function getLastBeats() external view returns (Beat[] memory) {
+        require(beatsCounter != 0, "No beats added");
+        uint256 lastBeatId = beatsCounter - 1;
+        uint256 j = 0;
+        if (lastBeatId < 10) {
+            Beat[] memory lastBeats = new Beat[](beatsCounter);
+            for (uint256 i = beatsCounter; i > 0; i--) {
+                lastBeats[j] = beats[i - 1];
+                j++;
+            }
+            return lastBeats;
+        } else {
+            Beat[] memory lastBeats = new Beat[](10);
+            for (uint256 i = lastBeatId; i > lastBeatId - 10; i--) {
+                lastBeats[j] = beats[i];
+                j++;
+            }
+            return lastBeats;
+        }
     }
 
     function convertIntToUint(int256 number) internal pure returns (uint256) {
