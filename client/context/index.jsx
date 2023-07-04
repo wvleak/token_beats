@@ -7,13 +7,15 @@ import {
   useContractWrite,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
+import { contract_abi } from "@utils/contract_abi";
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
   const { contract } = useContract(
-    "0x805817A89535B3556f0B6d78F01Aa7a0e1891F90"
-  );
+    "0x560ABE5FE6dbcC809112Eb0f1F3b52D4860975A6",
+    contract_abi
+  ); //"0x805817A89535B3556f0B6d78F01Aa7a0e1891F90"
   const { mutateAsync: listBeat, isLoading } = useContractWrite(
     contract,
     "listBeat"
@@ -44,8 +46,23 @@ export const StateContextProvider = ({ children }) => {
     }
   };
 
-  const getBeats = async () => {
-    const beats = await contract.call("getBeats");
+  const getAllBeats = async () => {
+    const beats = await contract.call("getAllBeats");
+
+    const parsedBeats = beats.map((beat) => ({
+      id: beat.beatId,
+      name: beat.name,
+      producer: beat.producer,
+      maxSupply: beat.maxSupply,
+      usdPrice: beat.usdPrice,
+      sales: beat.sales,
+      uri: beat.uri,
+    }));
+
+    return parsedBeats;
+  };
+  const getLastBeats = async () => {
+    const beats = await contract.call("getLastBeats");
 
     const parsedBeats = beats.map((beat) => ({
       id: beat.beatId,
@@ -60,8 +77,30 @@ export const StateContextProvider = ({ children }) => {
     return parsedBeats;
   };
 
+  // const getLastBeats = async () => {
+  //   try {
+  //     const beats = await contract.call("getLastBeats");
+
+  //     const parsedBeats = beats.map((beat) => ({
+  //       id: beat.beatId,
+  //       name: beat.name,
+  //       producer: beat.producer,
+  //       maxSupply: beat.maxSupply,
+  //       usdPrice: beat.usdPrice,
+  //       sales: beat.sales,
+  //       uri: beat.uri,
+  //     }));
+
+  //     console.log("contract call success", data);
+  //     return parsedBeats;
+  //   } catch (error) {
+  //     console.log("contract call failure", error);
+  //     return [];
+  //   }
+  // };
+
   const getProducerBeats = async (producerAddress) => {
-    const allBeats = await getBeats();
+    const allBeats = await getAllBeats();
 
     const filteredBeats = allBeats.filter(
       (beat) => beat.producer === producerAddress
@@ -80,7 +119,8 @@ export const StateContextProvider = ({ children }) => {
         connect,
         publishBeat,
         buyBeat,
-        getBeats,
+        getAllBeats,
+        getLastBeats,
         getProducerBeats,
       }}
     >

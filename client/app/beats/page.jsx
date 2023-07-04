@@ -7,11 +7,11 @@ const Beats = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [beats, setBeats] = useState([]);
 
-  const { contract, address, getBeats } = useStateContext();
+  const { contract, address, getAllBeats } = useStateContext();
 
   const fetchBeats = async () => {
     setIsLoading(true);
-    const data = await getBeats();
+    const data = await getAllBeats();
     setBeats(data);
     setIsLoading(false);
     console.log(beats);

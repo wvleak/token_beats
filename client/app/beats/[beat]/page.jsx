@@ -2,8 +2,9 @@
 
 import { useStateContext } from "@context";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const BeatDetails = () => {
+const BeatDetails = ({ params }) => {
   const { buyBeat } = useStateContext();
   const [beatId, setBeatId] = useState("");
 
@@ -14,6 +15,9 @@ const BeatDetails = () => {
 
     console.log("Submit");
   };
+  console.log(JSON.stringify(params.beat));
+
+  //console.log(JSON.parse(router.query.beat));
   return (
     <div>
       <input type="text" placeholder="beatId" />

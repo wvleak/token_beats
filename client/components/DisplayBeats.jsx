@@ -6,13 +6,33 @@ const DisplayBeats = ({ title, isLoading, beats }) => {
   const router = useRouter();
 
   const handleNavigate = (beat) => {
+    router.query.beat = beat.id;
     router.push(`/beats/${beat.id}`);
+    // router.push({
+    //   pathname: "/destination-page",
+    //   query: { beatId: beat.beatId /* other query parameters if needed */ },
+    // });
+    // router.push({
+    //   pathname: "/",
+    //   query: { param1: 'value1', param2: 'value2' },
+    // });
   };
   return (
     <div>
       <h1 className="text-white">
         {title} ({beats.length})
       </h1>
+      <button
+        type="button"
+        onClick={() => {
+          router.push({
+            pathname: `/beats/[beat]`,
+            query: { beat: beats },
+          });
+        }}
+      >
+        Click here to read more
+      </button>
       <div className="flex flex-wrap mt-[20px] gap-[26px]">
         {isLoading && (
           <img

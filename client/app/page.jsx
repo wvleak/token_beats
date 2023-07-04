@@ -12,7 +12,7 @@ const Home = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [beats, setBeats] = useState([]);
-  const { contract, address, getBeats } = useStateContext();
+  const { contract, address, getAllBeats, getLastBeats } = useStateContext();
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -34,7 +34,7 @@ const Home = () => {
   };
   const fetchBeats = async () => {
     setIsLoading(true);
-    const data = await getBeats();
+    const data = await getLastBeats();
     setBeats(data);
     setIsLoading(false);
     console.log(beats);
@@ -45,6 +45,9 @@ const Home = () => {
 
   const handleClick = () => {
     router.push(`/beats`);
+  };
+  const handleNavigate = (beat) => {
+    router.push(`/beats/${beat.id}`);
   };
   return (
     <section className="flex flex-col gap-8 items-center">
@@ -91,16 +94,9 @@ const Home = () => {
           </span>
         </button>
       </div>
-      <div className="mt-[100px]">
+      <div className="mt-[100px] min-w-[500px] max-w-[1000px] ">
         <h1 className="text-white">New beats</h1>
-        <Carousel
-          responsive={responsive}
-          className="w-[1000px] h-[400px] text-white"
-        >
-          {/* <div>Item 1</div>
-          <div>Item 2</div>
-          <div>Item 3</div>
-          <div>Item 4</div> */}
+        <Carousel responsive={responsive} className="w-full h-full text-white">
           {!isLoading &&
             beats.length > 0 &&
             beats.map((beat) => (
