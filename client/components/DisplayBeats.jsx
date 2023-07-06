@@ -6,7 +6,7 @@ const DisplayBeats = ({ title, isLoading, beats }) => {
   const router = useRouter();
 
   const handleNavigate = (beat) => {
-    router.query.beat = beat.id;
+    //router.query.beat = beat.id;
     router.push(`/beats/${beat.id}`);
     // router.push({
     //   pathname: "/destination-page",
