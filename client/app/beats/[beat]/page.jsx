@@ -3,6 +3,7 @@
 import { useStateContext } from "@context";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import AudioPlayer from "@components/AudioPlayer";
 
 const BeatDetails = ({ params }) => {
   const { buyBeat } = useStateContext();
@@ -24,12 +25,13 @@ const BeatDetails = ({ params }) => {
         <div className="w-[288px]">
           <img src="https://www.billboard.com/wp-content/uploads/media/kanye-west-the-life-of-pablo-album-2016-billboard-1024.jpg?w=1024" />
         </div>
-        <div className="flex flex-col ml-10 gap-5">
+        <div className="flex-1 flex flex-col ml-10 gap-3 max-h-[288px]">
           <h1 className="text-white">Title</h1>
           <h1 className="text-white">Producer</h1>
           <h1 className="text-white">Supply left</h1>
           <h1 className="text-white">Price</h1>
           <h1 className="text-white">Tags</h1>
+          <AudioPlayer />
         </div>
       </div>
       <div className="flex flex-col gap-5">
