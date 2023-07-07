@@ -14,12 +14,13 @@ const formWaveSurferOptions = (ref) => ({
   normalize: true,
   partialRender: true,
 });
-const AudioPlayer = () => {
+const AudioPlayer = ({ url }) => {
+  console.log("audioplayer: ", url);
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
-  const url =
-    "https://bafybeid4ohzop2c7f2ikw4f6ormul4u6dh7yh5k5txv7ntboeazujunrra.ipfs.dweb.link/%5BFREE%5D%20Gunna%20Type%20Beat%202023%20-%20paybach.mp3";
+  // const url =
+  //   "https://bafybeid4ohzop2c7f2ikw4f6ormul4u6dh7yh5k5txv7ntboeazujunrra.ipfs.dweb.link/%5BFREE%5D%20Gunna%20Type%20Beat%202023%20-%20paybach.mp3";
 
   useEffect(() => {
     create();
@@ -38,7 +39,14 @@ const AudioPlayer = () => {
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
 
-    wavesurfer.current.load(url);
+    if (
+      url ==
+      "https://tokenbeat.infura-ipfs.io/ipfs/QmRc3mSHf2mu2XhVYtvXuhvEpikZLqXXjJCYFxFj5MPNUS"
+    ) {
+      wavesurfer.current.load(url);
+    } else {
+      console.log("Failll");
+    }
   };
 
   const handlePlayPause = () => {

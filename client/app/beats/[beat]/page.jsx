@@ -1,13 +1,32 @@
 "use client";
 
 import { useStateContext } from "@context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AudioPlayer from "@components/AudioPlayer";
+import axios from "axios";
 
 const BeatDetails = ({ params }) => {
   const { buyBeat } = useStateContext();
   const [beatId, setBeatId] = useState("");
+  const [audio, setAudio] = useState(
+    "https://tokenbeat.infura-ipfs.io/ipfs/QmRc3mSHf2mu2XhVYtvXuhvEpikZLqXXjJCYFxFj5MPNUS"
+  );
+  const uri =
+    "https://tokenbeat.infura-ipfs.io/ipfs/QmUHpgt7dE12cbMUuoR2ijR1XuaMJk8t6ssQRaRNESR42e";
+
+  useEffect(() => {
+    console.log(uri);
+    fetchInfo();
+  }, []);
+
+  const fetchInfo = async () => {
+    const response = await axios.get(uri);
+    const data = response.data;
+    console.log(response.data.animation_url);
+    setAudio(data.animation_url);
+    console.log(audio);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +50,7 @@ const BeatDetails = ({ params }) => {
           <h1 className="text-white">Supply left</h1>
           <h1 className="text-white">Price</h1>
           <h1 className="text-white">Tags</h1>
-          <AudioPlayer />
+          <AudioPlayer url={audio} />
         </div>
       </div>
       <div className="flex flex-col gap-5">
