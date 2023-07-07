@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const BeatCard = ({
   beatId,
@@ -10,13 +13,26 @@ const BeatCard = ({
   uri,
   handleClick,
 }) => {
+  const [image, setImage] = useState("");
   const supplyLeft = maxSupply - sales;
+  useEffect(() => {
+    console.log(uri);
+    fetchInfo();
+  }, []);
+
+  const fetchInfo = async () => {
+    const response = await axios.get(uri);
+    const data = response.data;
+    console.log(response.data.image);
+    setImage(data.image);
+  };
 
   return (
     <div
       className="w-[288px]  bg-[#1c1c24] cursor-pointer"
       onClick={handleClick}
     >
+      <img src={image} />
       <img
         src="https://www.billboard.com/wp-content/uploads/media/kanye-west-the-life-of-pablo-album-2016-billboard-1024.jpg?w=1024"
         alt="beatImage"

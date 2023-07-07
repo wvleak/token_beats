@@ -112,9 +112,10 @@ const SellBeats = () => {
     const uri = "https://tokenbeat.infura-ipfs.io/ipfs/" + result.path;
     console.log(uri);
 
-    setForm({ ...form, uri: uri });
+    // await setForm({ ...form, uri: uri });
+    // console.log(form.uri);
 
-    await publishBeat(form);
+    await publishBeat({ ...form, uri: uri });
     //add publisher in database
   };
 
