@@ -27,7 +27,12 @@ export const StateContextProvider = ({ children }) => {
   const publishBeat = async (form) => {
     try {
       const data = await listBeat({
-        args: [form.title, form.maxSupply, form.usdPrice, form.uri],
+        args: [
+          form.title,
+          form.maxSupply.toString(),
+          form.usdPrice.toString(),
+          form.uri,
+        ],
       });
 
       console.log("contract call success", data);
