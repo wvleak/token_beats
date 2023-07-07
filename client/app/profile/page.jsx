@@ -4,10 +4,12 @@ import DisplayBeats from "@components/DisplayBeats";
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
 import CustomButton from "@components/CustomButton";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [beats, setBeats] = useState([]);
+  const router = useRouter();
 
   const { contract, address, getProducerBeats } = useStateContext();
 
@@ -34,14 +36,13 @@ const page = () => {
           btnType="button"
           title="Edit"
           styles="bg-[#1dc071] text-white"
+          handleClick={() => {
+            router.push("/profile/edit");
+          }}
         />
       </div>
 
-      <DisplayBeats
-        title="Producer Beats"
-        isLoading={isLoading}
-        beats={beats}
-      />
+      <DisplayBeats title="Your Beats" isLoading={isLoading} beats={beats} />
     </div>
   );
 };
