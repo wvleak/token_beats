@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import FormField from "@components/FormField";
 import CustomButton from "@components/CustomButton";
+import { useStateContext } from "@context";
 
 const Profile = () => {
   const [user, setUser] = useState({ username: "", image: "" });
   const [postImage, setPostImage] = useState({ myFile: "" });
   const [getImage, setGetImage] = useState({ profile: "" });
+  const { address } = useStateContext();
 
   //TODO useEffect with address
   // useEffect(() => {
@@ -18,7 +20,7 @@ const Profile = () => {
     //console.log(user);
     console.log(getImage);
     try {
-      const response = await fetch(`/api/profile/${user.username}`, {
+      const response = await fetch(`/api/profile/${address}`, {
         method: "GET",
       });
 
@@ -58,6 +60,7 @@ const Profile = () => {
       const response = await fetch("/api/profile/edit", {
         method: "POST",
         body: JSON.stringify({
+          address: address,
           username: user.username,
           image: user.image,
         }),

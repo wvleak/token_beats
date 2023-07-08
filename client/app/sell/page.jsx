@@ -122,25 +122,7 @@ const SellBeats = () => {
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
       {/* {isLoading && "Loading..."} */}
-      {ipfs && (
-        <>
-          <h3>Upload file to IPFS</h3>
-          <form onSubmit={onSubmitHandler}>
-            <input type="file" name="file" />
-            <button type="submit" className="bg-white">
-              Upload file
-            </button>
-          </form>
-        </>
-      )}
-      <CustomButton
-        btnType="button"
-        title="ipfs"
-        styles="bg-[#1dc071] text-white"
-        handleClick={() => {
-          onSubmitHandler();
-        }}
-      />
+
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
           Sell a Beat
@@ -210,6 +192,7 @@ const SellBeats = () => {
           value={"https://tokenbeat.infura-ipfs.io/ipfs/" + files.audio}
           handleChange={(e) => handleFormFieldChange("image", e)}
         />
+
         <label className="flex-1 w-full flex flex-col">
           <span className="font-epilogue font-medium text-[14px] leading-[22px] text-[#808191] mb-[10px]">
             Upload to IPFS
@@ -226,7 +209,7 @@ const SellBeats = () => {
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="submit"
-            title="List your beat"
+            title="List"
             styles="bg-[#1dc071] text-white"
           />
         </div>

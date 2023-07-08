@@ -6,7 +6,7 @@ export const GET = async (request, { params }) => {
     await connectToDB();
 
     const user = await User.findOne({
-      username: params.profile_address.toString(),
+      address: params.profile_address.toString(),
     });
     if (!user) return new Response("User Not Found", { status: 404 });
     console.log(user);

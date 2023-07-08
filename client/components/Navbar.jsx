@@ -7,12 +7,39 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 import { useStateContext } from "../context";
 import CustomButton from "./CustomButton";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const { address, connect } = useStateContext();
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const router = useRouter();
+  const [user, setUser] = useState({ username: "", image: "" });
+
+  useEffect(() => {
+    getProfile();
+  }, [address]);
+
+  const getProfile = async (e) => {
+    //console.log(user);
+
+    try {
+      const response = await fetch(`/api/profile/${address}`, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        console.log("Went ok");
+        const data = await response.json();
+
+        console.log(data.image);
+        //const res = await response.json();
+        //console.log(res);
+        setUser({ ...user, image: data.image });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <nav className="flex justify-between w-full mb-16 pt-3 gap-10">
@@ -48,11 +75,24 @@ const Navbar = () => {
         {address && (
           <Link href="/profile">
             <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
-              <img
+              {user.image === "" ? (
+                <img
+                  src="/assets/profile.jpg"
+                  alt="user"
+                  className="w-[100%] h-[100%] rounded-full object-fit"
+                />
+              ) : (
+                <img
+                  src={user.image}
+                  alt="user"
+                  className="w-[100%] h-[100%] rounded-full object-fit"
+                />
+              )}
+              {/* <img
                 src="/assets/profile.jpg"
                 alt="user"
                 className="w-[100%] h-[100%] rounded-full object-fit"
-              />
+              /> */}
             </div>
           </Link>
         )}
