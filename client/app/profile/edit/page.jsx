@@ -12,7 +12,7 @@ const Profile = () => {
 
   useEffect(() => {
     const setUserProfile = async () => {
-      const data = await getUserProfile();
+      const data = await getUserProfile(address);
       console.log("UseEffect:", data);
       if (data) {
         setProfile({ ...profile, username: data.username, image: data.image });
@@ -62,7 +62,7 @@ const Profile = () => {
           Edit Profile
         </h1>
       </div>
-      <div className="flex justify-center mt-9 relative group">
+      <div className="flex justify-center mt-9 relative group hover:cursor-pointer">
         <img
           src="/assets/pen.svg"
           className="h-8 w-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 z-10 transition duration-300 ease-out"

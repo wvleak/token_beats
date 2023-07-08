@@ -109,9 +109,9 @@ export const StateContextProvider = ({ children }) => {
     return filteredBeats;
   };
 
-  const getUserProfile = async () => {
+  const getUserProfile = async (userAddress) => {
     try {
-      const response = await fetch(`/api/profile/${address}`, {
+      const response = await fetch(`/api/profile/${userAddress}`, {
         method: "GET",
       });
 

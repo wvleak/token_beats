@@ -7,8 +7,9 @@ import AudioPlayer from "@components/AudioPlayer";
 import axios from "axios";
 
 const BeatDetails = ({ params }) => {
-  const { buyBeat } = useStateContext();
+  const { buyBeat, getUserProfile } = useStateContext();
   const [beatId, setBeatId] = useState("");
+  const [user, setUser] = useState({ username: "", image: "" });
   const [audio, setAudio] = useState(
     "https://tokenbeat.infura-ipfs.io/ipfs/QmRc3mSHf2mu2XhVYtvXuhvEpikZLqXXjJCYFxFj5MPNUS"
   );
@@ -17,16 +18,26 @@ const BeatDetails = ({ params }) => {
 
   useEffect(() => {
     console.log(uri);
+    const fetchInfo = async () => {
+      const response = await axios.get(uri);
+      const data = response.data;
+      console.log(response.data.animation_url);
+      setAudio(data.animation_url);
+      console.log(audio);
+    };
     fetchInfo();
   }, []);
 
-  const fetchInfo = async () => {
-    const response = await axios.get(uri);
-    const data = response.data;
-    console.log(response.data.animation_url);
-    setAudio(data.animation_url);
-    console.log(audio);
-  };
+  // useEffect(() => {
+  //   const setUserProfile = async () => {
+  //     const data = await getUserProfile();
+  //     console.log("UseEffect:", data);
+  //     if (data) {
+  //       setUser({ ...user, username: data.username, image: data.image });
+  //     }
+  //   };
+  //   setUserProfile();
+  // }, [address]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
