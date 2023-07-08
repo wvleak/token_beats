@@ -109,6 +109,22 @@ export const StateContextProvider = ({ children }) => {
     return filteredBeats;
   };
 
+  const getUserProfile = async () => {
+    try {
+      const response = await fetch(`/api/profile/${address}`, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //TODO get owned beats
 
   return (
@@ -122,6 +138,7 @@ export const StateContextProvider = ({ children }) => {
         getAllBeats,
         getLastBeats,
         getProducerBeats,
+        getUserProfile,
       }}
     >
       {children}

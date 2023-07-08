@@ -1,68 +1,46 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FormField from "@components/FormField";
 import CustomButton from "@components/CustomButton";
 import { useStateContext } from "@context";
 
 const Profile = () => {
-  const [user, setUser] = useState({ username: "", image: "" });
-  const [postImage, setPostImage] = useState({ myFile: "" });
-  const [getImage, setGetImage] = useState({ profile: "" });
-  const { address } = useStateContext();
+  const [profile, setProfile] = useState({ username: "", image: "" });
+  const { address, getUserProfile } = useStateContext();
+  const inputRef = useRef(null);
 
-  //TODO useEffect with address
-  // useEffect(() => {
-  //   getProfile;
-  // },[])
-
-  const getProfile = async (e) => {
-    //console.log(user);
-    console.log(getImage);
-    try {
-      const response = await fetch(`/api/profile/${address}`, {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        console.log("Went ok");
-        const data = await response.json();
-
-        console.log(data.image);
-        //const res = await response.json();
-        //console.log(res);
-        setGetImage({ ...getImage, profile: data.image });
+  useEffect(() => {
+    const setUserProfile = async () => {
+      const data = await getUserProfile();
+      console.log("UseEffect:", data);
+      if (data) {
+        setProfile({ ...profile, username: data.username, image: data.image });
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+    setUserProfile();
+  }, [address]);
 
   const handleFormFieldChange = (fieldName, e) => {
-    setUser({ ...user, [fieldName]: e.target.value });
-    console.log(user);
+    setProfile({ ...profile, [fieldName]: e.target.value });
   };
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
-    //console.log(base64);
-    setUser({ ...user, image: base64 });
-    console.log(user);
-    //setPostImage({ ...postImage, myFile: base64 });
-    //console.log(postImage);
+    setProfile({ ...profile, image: base64 });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
+    console.log(profile);
     try {
       const response = await fetch("/api/profile/edit", {
         method: "POST",
         body: JSON.stringify({
           address: address,
-          username: user.username,
-          image: user.image,
+          username: profile.username,
+          image: profile.image,
         }),
       });
 
@@ -73,39 +51,57 @@ const Profile = () => {
       console.log(error);
     }
   };
+
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-      <img width={100} height={100} src={getImage.profile} />
-      <CustomButton
-        btnType="button"
-        title="profile"
-        styles="bg-[#1dc071] text-white"
-        handleClick={() => {
-          getProfile(user.username);
-        }}
-      />
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
           Edit Profile
         </h1>
       </div>
+      <div className="flex justify-center mt-9 relative group">
+        <img
+          src="/assets/pen.svg"
+          className="h-8 w-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 z-10 transition duration-300 ease-out"
+          onClick={handleImageClick}
+        />
+        {profile.image ? (
+          <img
+            src={profile.image}
+            alt="profile_picture"
+            className="w-[190px] h-[190px] rounded-full group-hover:brightness-50 z-0 transition duration-300 ease-out"
+            onClick={handleImageClick}
+          />
+        ) : (
+          <img
+            src="/assets/profile.png"
+            alt="profile_picture"
+            className="w-[170px] h-[170px] rounded-full group-hover:brightness-50 z-0"
+            onClick={handleImageClick}
+          />
+        )}
+
+        <input
+          ref={inputRef}
+          type="file"
+          className="hidden"
+          onChange={(e) => handleFileUpload(e)}
+        />
+      </div>
       <form
         onSubmit={handleSubmit}
         className="w-full mt-[65px] flex flex-col gap-[30px]"
       >
-        <div className="flex flex-wrap gap-[40px]">
+        <div className="flex justify-center ">
           <FormField
             labelName="Username *"
-            placeholder="Gunna Type Beat"
+            placeholder="Your username..."
             inputType="text"
-            value={user.username}
+            value={profile.username}
             handleChange={(e) => handleFormFieldChange("username", e)}
-          />
-          <FormField
-            labelName="Profile picture *"
-            placeholder="Write a title"
-            inputType="file"
-            handleChange={(e) => handleFileUpload(e)}
           />
         </div>
 
