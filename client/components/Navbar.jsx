@@ -10,36 +10,21 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
-  const { address, connect } = useStateContext();
+  const { address, connect, getUserProfile } = useStateContext();
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({ username: "", image: "" });
 
   useEffect(() => {
-    getProfile();
-  }, [address]);
-
-  const getProfile = async (e) => {
-    //console.log(user);
-
-    try {
-      const response = await fetch(`/api/profile/${address}`, {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        console.log("Went ok");
-        const data = await response.json();
-
-        console.log(data.image);
-        //const res = await response.json();
-        //console.log(res);
-        setUser({ ...user, image: data.image });
+    const setUserProfile = async () => {
+      const data = await getUserProfile();
+      console.log("UseEffect:", data);
+      if (data) {
+        setUser({ ...user, username: data.username, image: data.image });
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+    setUserProfile();
+  }, [address]);
 
   return (
     <nav className="flex justify-between w-full mb-16 pt-3 gap-10">
@@ -88,11 +73,6 @@ const Navbar = () => {
                   className="w-[100%] h-[100%] rounded-full object-fit"
                 />
               )}
-              {/* <img
-                src="/assets/profile.jpg"
-                alt="user"
-                className="w-[100%] h-[100%] rounded-full object-fit"
-              /> */}
             </div>
           </Link>
         )}
