@@ -109,6 +109,14 @@ export const StateContextProvider = ({ children }) => {
     return filteredBeats;
   };
 
+  const getBeat = async (beatId) => {
+    const allBeats = await getAllBeats();
+
+    const filteredBeats = allBeats.filter((beat) => beat.id == beatId);
+
+    return filteredBeats;
+  };
+
   const getUserProfile = async (userAddress) => {
     try {
       const response = await fetch(`/api/profile/${userAddress}`, {
@@ -139,6 +147,7 @@ export const StateContextProvider = ({ children }) => {
         getLastBeats,
         getProducerBeats,
         getUserProfile,
+        getBeat,
       }}
     >
       {children}

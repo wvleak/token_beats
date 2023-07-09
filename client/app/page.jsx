@@ -5,6 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 import BeatCard from "../components/BeatCard";
 
@@ -48,6 +49,10 @@ const Home = () => {
   };
   const handleNavigate = (beat) => {
     router.push(`/beats/${beat.id}`);
+    // router.push({
+    //   pathname: "/beats/[beatId]",
+    //   query: { beatId: beat.id },
+    // });
   };
   return (
     <section className="flex flex-col gap-8 items-center">
@@ -100,11 +105,18 @@ const Home = () => {
           {!isLoading &&
             beats.length > 0 &&
             beats.map((beat) => (
+              // <Link
+              //   href={{
+              //     pathname: "/beats/id",
+              //     query: { beatId: 9 },
+              //   }}
+              // >
               <BeatCard
-                key={beat.beatId}
+                key={beat.id}
                 {...beat}
                 handleClick={() => handleNavigate(beat)}
               />
+              //</Link>
             ))}
         </Carousel>
       </div>

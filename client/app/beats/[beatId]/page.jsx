@@ -7,9 +7,9 @@ import AudioPlayer from "@components/AudioPlayer";
 import axios from "axios";
 
 const BeatDetails = ({ params }) => {
-  const { buyBeat, getUserProfile } = useStateContext();
-  const [beatId, setBeatId] = useState("");
-  const [user, setUser] = useState({ username: "", image: "" });
+  const { buyBeat, getUserProfile, getBeat } = useStateContext();
+  const [beat, setBeat] = useState({});
+  const [producer, setProducer] = useState({ username: "", image: "" });
   const [audio, setAudio] = useState(
     "https://tokenbeat.infura-ipfs.io/ipfs/QmRc3mSHf2mu2XhVYtvXuhvEpikZLqXXjJCYFxFj5MPNUS"
   );
@@ -17,27 +17,37 @@ const BeatDetails = ({ params }) => {
     "https://tokenbeat.infura-ipfs.io/ipfs/QmUHpgt7dE12cbMUuoR2ijR1XuaMJk8t6ssQRaRNESR42e";
 
   useEffect(() => {
-    console.log(uri);
+    const fetchBeat = async () => {
+      console.log(params.beatId);
+      const data = await getBeat(params.beatId);
+      setBeat(data[0]);
+      console.log(beat);
+    };
+    fetchBeat();
+  }, []);
+
+  useEffect(() => {
+    //console.log(uri);
     const fetchInfo = async () => {
       const response = await axios.get(uri);
       const data = response.data;
-      console.log(response.data.animation_url);
+      //console.log(response.data.animation_url);
       setAudio(data.animation_url);
-      console.log(audio);
+      //console.log(audio);
     };
     fetchInfo();
   }, []);
 
   // useEffect(() => {
-  //   const setUserProfile = async () => {
-  //     const data = await getUserProfile();
-  //     console.log("UseEffect:", data);
+  //   const setProducerProfile = async () => {
+  //     const data = await getUserProfile(beat.producer);
+  //     //console.log("UseEffect:", data);
   //     if (data) {
-  //       setUser({ ...user, username: data.username, image: data.image });
+  //       setProducer({ ...producer, username: data.username, image: data.image });
   //     }
   //   };
-  //   setUserProfile();
-  // }, [address]);
+  //   setProducerProfile();
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +56,7 @@ const BeatDetails = ({ params }) => {
 
     console.log("Submit");
   };
-  console.log(JSON.stringify(params.beat));
+  //console.log(JSON.stringify(params.beat));
 
   //console.log(JSON.parse(router.query.beat));
   return (
@@ -56,9 +66,14 @@ const BeatDetails = ({ params }) => {
           <img src="https://www.billboard.com/wp-content/uploads/media/kanye-west-the-life-of-pablo-album-2016-billboard-1024.jpg?w=1024" />
         </div>
         <div className="flex-1 flex flex-col ml-10 gap-3 max-h-[288px]">
-          <h1 className="text-white">Title</h1>
-          <h1 className="text-white">Producer</h1>
-          <h1 className="text-white">Supply left</h1>
+          {/* {beat.length > 0 &&
+            beat.map((beat) => (
+              <h1 className="text-white">Id: {beat.producer}</h1>
+            ))} */}
+          {<h1 className="text-white">{beat.producer}</h1>}
+          <h1 className="text-white">Title: {beat.name}</h1>
+          <h1 className="text-white">Producer: </h1>
+          <h1 className="text-white">Supply left: </h1>
           <h1 className="text-white">Price</h1>
           <h1 className="text-white">Tags</h1>
           <AudioPlayer url={audio} />
