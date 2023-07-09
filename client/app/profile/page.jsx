@@ -39,7 +39,12 @@ const page = () => {
   }, [address, contract]);
   return (
     <div>
-      <div className="bg-black/[.65] group flex gap-4 rounded-md w-full mb-11 p-4 relative">
+      <div
+        className="bg-black/[.65] group flex gap-4 rounded-md w-full mb-11 p-4 relative hover:cursor-pointer"
+        onClick={() => {
+          router.push("/profile/edit");
+        }}
+      >
         <div
           className="absolute -z-10 -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-75
           group-hover:opacity-100 transition duration-1000 group-hover:duration-200"
