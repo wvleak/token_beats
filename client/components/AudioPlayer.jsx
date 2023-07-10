@@ -23,30 +23,32 @@ const AudioPlayer = ({ url }) => {
   //   "https://bafybeid4ohzop2c7f2ikw4f6ormul4u6dh7yh5k5txv7ntboeazujunrra.ipfs.dweb.link/%5BFREE%5D%20Gunna%20Type%20Beat%202023%20-%20paybach.mp3";
 
   useEffect(() => {
-    create();
-    console.log("Run");
+    if (url != "") {
+      create();
+      console.log("Run");
+    }
 
     // return () => {
     //   if (wavesurfer.current) {
     //     wavesurfer.current.destroy();
     //   }
     // };
-  }, []);
+  }, [url]);
 
   const create = async () => {
     const WaveSurfer = (await import("wavesurfer.js")).default;
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
-
-    if (
-      url ==
-      "https://tokenbeat.infura-ipfs.io/ipfs/QmRc3mSHf2mu2XhVYtvXuhvEpikZLqXXjJCYFxFj5MPNUS"
-    ) {
-      wavesurfer.current.load(url);
-    } else {
-      console.log("Failll");
-    }
+    wavesurfer.current.load(url);
+    // if (
+    //   url ==
+    //   "https://tokenbeat.infura-ipfs.io/ipfs/QmRc3mSHf2mu2XhVYtvXuhvEpikZLqXXjJCYFxFj5MPNUS"
+    // ) {
+    //   wavesurfer.current.load(url);
+    // } else {
+    //   console.log("Failll");
+    // }
   };
 
   const handlePlayPause = () => {

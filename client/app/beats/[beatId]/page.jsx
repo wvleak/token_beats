@@ -7,6 +7,7 @@ import AudioPlayer from "@components/AudioPlayer";
 import axios from "axios";
 import Link from "next/link";
 import CustomButton from "@components/CustomButton";
+import { create as ipfsClient } from "ipfs-http-client";
 
 const BeatDetails = ({ params }) => {
   const { buyBeat, getUserProfile, getBeat, contract, getEthPrice } =
@@ -19,6 +20,12 @@ const BeatDetails = ({ params }) => {
   const [price, setPrice] = useState("");
   const [supply, setSupply] = useState("");
   const router = useRouter();
+  // const ipfs = ipfsClient({
+  //   host: "ipfs.infura.io",
+  //   port: 5001,
+  //   protocol: "https",
+  // });
+
   // const uri =
   //   "https://tokenbeat.infura-ipfs.io/ipfs/QmUHpgt7dE12cbMUuoR2ijR1XuaMJk8t6ssQRaRNESR42e";
 
@@ -39,6 +46,10 @@ const BeatDetails = ({ params }) => {
         console.log("uri", beat);
         const response = await axios.get(beat.uri);
         const data = response.data;
+
+        // const response = await ipfs.cat(uri);
+        // const data = await response.text();
+        console.log(data);
         //console.log(response.data.animation_url);
         setAudio(data.animation_url);
         setImage(data.image);
