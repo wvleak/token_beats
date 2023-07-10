@@ -9,13 +9,16 @@ import Link from "next/link";
 import CustomButton from "@components/CustomButton";
 
 const BeatDetails = ({ params }) => {
-  const { buyBeat, getUserProfile, getBeat, contract } = useStateContext();
+  const { buyBeat, getUserProfile, getBeat, contract, getEthPrice } =
+    useStateContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [beat, setBeat] = useState({});
   const [image, setImage] = useState("");
   const [producer, setProducer] = useState({ username: "", image: "" });
   const [audio, setAudio] = useState("");
   const [price, setPrice] = useState("");
   const [supply, setSupply] = useState("");
+  const router = useRouter();
   // const uri =
   //   "https://tokenbeat.infura-ipfs.io/ipfs/QmUHpgt7dE12cbMUuoR2ijR1XuaMJk8t6ssQRaRNESR42e";
 
@@ -65,8 +68,13 @@ const BeatDetails = ({ params }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const ethPrice = await getEthPrice(price);
+    console.log(ethPrice.toString());
 
-    await buyBeat(beatId, price);
+    setIsLoading(true);
+    await buyBeat(params.beatId, ethPrice.toString());
+    setIsLoading(false);
+    router.push("/");
 
     console.log("Submit");
   };
@@ -106,36 +114,40 @@ const BeatDetails = ({ params }) => {
     //   </div>
     // </div>
     <div className="flex flex-col items-center gap-5">
+      {isLoading && "Buying..."}
       <div className="flex gap-8">
         <img src={image} className="w-[288px]" />
         <div className="flex flex-col gap-3">
           <h1 className="text-white text-5xl">{beat.name}</h1>
           <p className="text-gray-500 text-lg max-w-[300px] truncate">
             Produced by:{" "}
+          </p>
+          <div className="flex gap-3">
             {producer.image != "" ? (
               <img src={producer.image} className="h-10 w-10 rounded-full" />
             ) : (
               ""
             )}
-            <Link className="" href={`/profile/${beat.producer}`}>
+            <Link className="mt-2" href={`/profile/${beat.producer}`}>
               {producer.username != "" ? (
                 <span className="text-white hover:text-gray-400 ">
                   {producer.username}
                 </span>
               ) : (
-                <span className="hover:text-gray-400 ">{beat.producer}</span>
+                <span className="hover:text-gray-400 mt-3 ">
+                  {beat.producer}
+                </span>
               )}
             </Link>
-          </p>
+          </div>
         </div>
       </div>
       <div className="w-[80%] sm:max-w-[1000px] place-self-start text-white">
         <AudioPlayer url={audio} />
       </div>
+      <p className="text-gray-500">Supply left:{supply}</p>
       <div className="flex gap-3">
-        <p className="text-gray-500 mt-5">
-          Supply:{supply} {price}$
-        </p>
+        <p className="text-gray-500 mt-5">{price}$</p>
         <CustomButton
           btnType="buttion"
           title="Buy"

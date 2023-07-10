@@ -15,7 +15,7 @@ const FormField = ({
       )}
       {isTextArea ? (
         <textarea
-          required
+          disabled
           value={value}
           onChange={handleChange}
           rows={10}

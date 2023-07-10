@@ -9,7 +9,7 @@ const SeeProfile = ({ params }) => {
   const [user, setUser] = useState({ username: "", image: "" });
   const [beats, setBeats] = useState([]);
 
-  const { getProducerBeats, contract } = useStateContext();
+  const { getProducerBeats, contract, getUserProfile } = useStateContext();
   //todo get beats from profile
   const fetchBeats = async () => {
     setIsLoading(true);

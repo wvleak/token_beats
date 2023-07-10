@@ -100,6 +100,7 @@ contract TokenBeatsFactory is ReentrancyGuard {
         require(sent, "Funds not sent");
     }
 
+    //return the price in wei
     function getEthPrice(uint256 _usdPrice) public view returns (uint256) {
         (
             uint80 roundID,

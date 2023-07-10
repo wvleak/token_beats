@@ -36,14 +36,20 @@ export const StateContextProvider = ({ children }) => {
     }
   };
   const buyBeat = async (beatId, price) => {
+    console.log("Entered buy beat");
     try {
       const data = await contract.call("buyBeat", [beatId], {
-        value: ethers.utils.parseEther(price),
+        value: price,
       });
       console.log("contract call success", data);
     } catch (error) {
       console.log("contract call failure", error);
     }
+  };
+
+  const getEthPrice = async (usdPrice) => {
+    const ethPrice = await contract.call("getEthPrice", [usdPrice]);
+    return ethPrice;
   };
 
   const getAllBeats = async () => {
@@ -148,6 +154,7 @@ export const StateContextProvider = ({ children }) => {
         getProducerBeats,
         getUserProfile,
         getBeat,
+        getEthPrice,
       }}
     >
       {children}
