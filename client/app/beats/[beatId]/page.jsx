@@ -145,7 +145,7 @@ const BeatDetails = ({ params }) => {
                   {producer.username}
                 </span>
               ) : (
-                <span className="hover:text-gray-400 mt-3 ">
+                <span className="text-white hover:text-gray-400 mt-3 ">
                   {beat.producer}
                 </span>
               )}

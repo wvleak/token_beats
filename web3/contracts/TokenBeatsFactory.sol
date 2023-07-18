@@ -124,7 +124,10 @@ contract TokenBeatsFactory is ReentrancyGuard {
     }
 
     function getLastBeats() external view returns (Beat[] memory) {
-        require(beatsCounter != 0, "No beats added");
+        //require(beatsCounter != 0, "No beats added");
+        if (beatsCounter == 0) {
+            return new Beat[](0);
+        }
         uint256 lastBeatId = beatsCounter - 1;
         uint256 j = 0;
         if (lastBeatId < 10) {

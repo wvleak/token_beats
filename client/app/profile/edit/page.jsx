@@ -77,9 +77,9 @@ const Profile = () => {
           />
         ) : (
           <img
-            src="/assets/profile.png"
+            src="/assets/profile.jpg"
             alt="profile_picture"
-            className="w-[170px] h-[170px] rounded-full group-hover:brightness-50 z-0"
+            className="w-[190px] h-[190px] rounded-full group-hover:brightness-50 z-0 transition duration-300 ease-out"
             onClick={handleImageClick}
           />
         )}

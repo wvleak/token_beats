@@ -90,7 +90,7 @@ const BeatCard = ({
                     {producerInfo.username}
                   </span>
                 ) : (
-                  <span className="mt-2 group-hover:text-gray-400">
+                  <span className="mt-2 group-hover:text-gray-400 truncate">
                     {producer}
                   </span>
                 )}
