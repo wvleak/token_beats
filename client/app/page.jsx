@@ -1,13 +1,14 @@
 "use client";
 
 import { useStateContext } from "@context";
-import Carousel from "react-multi-carousel";
+//import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
 import BeatCard from "../components/BeatCard";
+import Carousel from "@components/atoms/carousel";
 
 const Home = () => {
   const router = useRouter();
@@ -101,7 +102,23 @@ const Home = () => {
       </div>
       <div className="mt-[100px] min-w-[500px] max-w-[1000px] ">
         <h1 className="text-white">New beats</h1>
-        <Carousel responsive={responsive} className="w-full h-full text-white">
+        <Carousel
+          cards={beats.map((beat) => (
+            // <Link
+            //   href={{
+            //     pathname: "/beats/id",
+            //     query: { beatId: 9 },
+            //   }}
+            // >
+            <BeatCard
+              key={beat.id}
+              {...beat}
+              handleClick={() => handleNavigate(beat)}
+            />
+            //</Link>
+          ))}
+        ></Carousel>
+        {/* <Carousel responsive={responsive} className="w-full h-full text-white">
           {!isLoading &&
             beats.length > 0 &&
             beats.map((beat) => (
@@ -118,7 +135,7 @@ const Home = () => {
               />
               //</Link>
             ))}
-        </Carousel>
+        </Carousel> */}
       </div>
     </section>
   );
