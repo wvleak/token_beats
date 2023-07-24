@@ -7,10 +7,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./TokenBeatsNFT.sol";
 
-/// @title A title that should describe the contract/interface
-/// @author The name of the author
-/// @notice Explain to an end user what this does
-/// @dev Explain to a developer any extra details
+/**
+ * @title
+ * @author
+ * @notice
+ */
 contract TokenBeatsFactory is ReentrancyGuard {
     AggregatorV3Interface internal priceFeed;
 
@@ -48,10 +49,15 @@ contract TokenBeatsFactory is ReentrancyGuard {
         );
     }
 
-    /// @notice Explain to an end user what this does
-    /// @dev Explain to a developer any extra details
-    /// @param _name name of the beat
-    /// @return beatsCounter the listed beat id
+    /**
+     * @notice Deploy a TokenBeatsNFT contract
+     * @dev A supply of zero references to an unlimited supply
+     * @param _name The name of the TokenBeat
+     * @param _maxSupply The supply of the TokenBeat
+     * @param _usdPrice The price in usd of the TokenBeat
+     * @param _uri The uri of the TokenBeat contract
+     * @return The id of the
+     */
     function listBeat(
         string calldata _name,
         uint256 _maxSupply,
@@ -77,9 +83,11 @@ contract TokenBeatsFactory is ReentrancyGuard {
         return beatsCounter++;
     }
 
-    /// @notice Mint a copy of a listed beat
-    /// @dev beat ids are stored in a cloud database
-    /// @param _beatId the Id of the beat to purchase
+    /**
+     * @notice mint a TokenBeat
+     * @dev the beats are paid in ether
+     * @param _beatId The id of the TokenBeat to mint
+     */
     function buyBeat(uint256 _beatId) external payable nonReentrant {
         require(_beatId < beatsCounter, "Beat does not exist"); //check if the beat has been inserted
 
@@ -100,7 +108,11 @@ contract TokenBeatsFactory is ReentrancyGuard {
         require(sent, "Funds not sent");
     }
 
-    //return the price in wei
+    /**
+     * @notice Convert the price from usd to eth
+     * @param _usdPrice The price in usd to convert
+     * @return the price in wei
+     */
     function getEthPrice(uint256 _usdPrice) public view returns (uint256) {
         (
             uint80 roundID,
@@ -113,6 +125,10 @@ contract TokenBeatsFactory is ReentrancyGuard {
         return (_usdPrice * 10 ** 18) / convertIntToUint(price / 1e8);
     }
 
+    /**
+     * @notice fetch all the TokenBeats deployed from this contract
+     * @return an array of Beats
+     */
     function getAllBeats() external view returns (Beat[] memory) {
         Beat[] memory allBeats = new Beat[](beatsCounter);
 
@@ -123,6 +139,10 @@ contract TokenBeatsFactory is ReentrancyGuard {
         return allBeats;
     }
 
+    /**
+     * @notice fetch the 10 latest Beats deployed from this contract
+     * @return an array of the latest Beats
+     */
     function getLastBeats() external view returns (Beat[] memory) {
         //require(beatsCounter != 0, "No beats added");
         if (beatsCounter == 0) {
@@ -147,6 +167,11 @@ contract TokenBeatsFactory is ReentrancyGuard {
         }
     }
 
+    /**
+     * @notice Helper function to convert int256 to uint256 safely
+     * @param number The int256 to convert
+     * @return the number casted to uint256
+     */
     function convertIntToUint(int256 number) internal pure returns (uint256) {
         require(number >= 0, "Cannot convert negative value to uint");
 

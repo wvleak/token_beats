@@ -4,6 +4,11 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * @title
+ * @author
+ * @notice
+ */
 contract TokenBeatsNFT is ERC721, Ownable {
     uint256 public immutable beatId;
     uint256 public immutable maxSupply;
@@ -21,6 +26,11 @@ contract TokenBeatsNFT is ERC721, Ownable {
         uri = _uri;
     }
 
+    /**
+     * @notice mint a tokenBeat
+     * @dev only the TokenBeatsFactory contract is allowed to mint
+     * @param _to The address to mint the tokenBeat
+     */
     function mint(address _to) external onlyOwner {
         if (maxSupply != 0) {
             require(tokenIds < maxSupply, "Out of supply");
@@ -30,6 +40,11 @@ contract TokenBeatsNFT is ERC721, Ownable {
         _safeMint(_to, tokenIds++);
     }
 
+    /**
+     * @notice Get the token uri
+     * @param tokenId The id of the token to get the uri
+     * @return the uri
+     */
     function tokenURI(
         uint256 tokenId
     ) public view override returns (string memory) {
