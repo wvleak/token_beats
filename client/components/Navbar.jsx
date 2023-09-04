@@ -8,9 +8,11 @@ import { useStateContext } from "../context";
 import CustomButton from "./CustomButton";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import NavbarHidden from "./atoms/NavbarHidden";
 
 const Navbar = () => {
-  const { address, connect, getUserProfile } = useStateContext();
+  const { address, connect, getUserProfile, disconnect } = useStateContext();
+
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({ username: "", image: "" });
@@ -58,69 +60,38 @@ const Navbar = () => {
           }}
         />
         {address && (
-          <Link href="/profile">
-            <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
-              {user.image === "" ? (
-                <img
-                  src="/assets/profile.jpg"
-                  alt="user"
-                  className="w-[100%] h-[100%] rounded-full object-fit"
-                />
-              ) : (
-                <img
-                  src={user.image}
-                  alt="user"
-                  className="w-[100%] h-[100%] rounded-full object-fit"
-                />
-              )}
-            </div>
-          </Link>
-        )}
-      </div>
-      <div className="sm:hidden">
-        <img
-          src="/assets/menu.svg"
-          className="min-w-[60px] h-[60px] mt-4"
-          alt="menu"
-          onClick={() => setToggleDrawer((prev) => !prev)}
-        />
-        <div
-          className={`absolute top-[60px] right-0 left-0 bg-[#1c1c24] z-10 shadow-secondary py-4 
-        ${
-          !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-10"
-        } transition-all duration-700`}
-        >
-          <ul className="mb-4">
-            {address && (
-              <Link href="/profile" className="flex gap-4 mx-4">
-                <img
-                  src="/assets/profile.svg"
-                  alt="user"
-                  className="w-[40px] h-[40px] rounded-full object-fit grayscale hover:grayscale-0"
-                />
-                <p className="text-white font-bold text-[20px] my-auto">
-                  profile
-                </p>
-              </Link>
-            )}
-          </ul>
-          <div className="flex mx-4 text-white">
-            <CustomButton
-              btnType="button"
-              title={address ? "Sell beats" : "Connect"}
-              styles={
-                address
-                  ? "bg-gradient-to-r from-red-500 to-orange-600"
-                  : "bg-gradient-to-r from-pink-500 to-purple-600"
-              }
-              handleClick={() => {
-                if (address) router.push("/sell");
-                else connect();
-              }}
+          <div className="flex gap-5">
+            <Link href="/profile">
+              <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
+                {user.image === "" ? (
+                  <img
+                    src="/assets/profile.jpg"
+                    alt="user"
+                    className="w-[100%] h-[100%] rounded-full object-fit"
+                  />
+                ) : (
+                  <img
+                    src={user.image}
+                    alt="user"
+                    className="w-[100%] h-[100%] rounded-full object-fit"
+                  />
+                )}
+              </div>
+            </Link>
+            <img
+              src="assets/logout.svg"
+              onClick={disconnect}
+              className="items-center cursor-pointer"
             />
           </div>
-        </div>
+        )}
       </div>
+      <NavbarHidden
+        toggleDrawer={toggleDrawer}
+        toggle={setToggleDrawer}
+        connect={connect}
+        address={address}
+      />
     </nav>
   );
 };

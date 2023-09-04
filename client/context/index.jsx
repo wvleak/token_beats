@@ -8,6 +8,7 @@ import {
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { contract_abi } from "@utils/contract_abi";
+import { useDisconnect } from "@thirdweb-dev/react";
 
 const StateContext = createContext();
 
@@ -23,6 +24,7 @@ export const StateContextProvider = ({ children }) => {
 
   const address = useAddress();
   const connect = useMetamask();
+  const disconnect = useDisconnect();
 
   const publishBeat = async (form) => {
     try {
@@ -147,6 +149,7 @@ export const StateContextProvider = ({ children }) => {
         address,
         contract,
         connect,
+        disconnect,
         publishBeat,
         buyBeat,
         getAllBeats,
