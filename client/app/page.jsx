@@ -4,8 +4,8 @@ import { useStateContext } from "@context";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-import BeatsCarousel from "./BeatsCarousel";
-import Hero from "./Hero";
+import BeatsCarousel from "../pages/Home/BeatsCarousel";
+import Hero from "../pages/Home/Hero";
 
 const HomePage = () => {
   const { contract, address, getAllBeats, getLastBeats } = useStateContext();

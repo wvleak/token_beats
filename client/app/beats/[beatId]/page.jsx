@@ -8,6 +8,7 @@ import axios from "axios";
 import Link from "next/link";
 import CustomButton from "@components/atoms/CustomButton";
 import { create as ipfsClient } from "ipfs-http-client";
+import LoadingScreen from "@components/LoadingScreen";
 
 const BeatDetails = ({ params }) => {
   const { buyBeat, getUserProfile, getBeat, contract, getEthPrice } =
@@ -56,7 +57,6 @@ const BeatDetails = ({ params }) => {
         setPrice(beat.usdPrice.toString());
         const supplyLeft = beat.maxSupply - beat.sales;
         setSupply(supplyLeft.toString());
-        //console.log(audio);
       }
     };
     fetchInfo();
@@ -65,7 +65,6 @@ const BeatDetails = ({ params }) => {
   useEffect(() => {
     const setProducerProfile = async () => {
       const data = await getUserProfile(beat.producer);
-      //console.log("UseEffect:", data);
       if (data) {
         setProducer({
           ...producer,
@@ -89,43 +88,9 @@ const BeatDetails = ({ params }) => {
 
     console.log("Submit");
   };
-  //console.log(JSON.stringify(params.beat));
-
-  //console.log(JSON.parse(router.query.beat));
   return (
-    // <div className="flex flex-col gap-8 mt-[90px]">
-    //   <div className="flex flex-row  gap-5 md:w-[800px] lg:w-[1000px]">
-    //     <div className="w-[288px]">
-    //       <img src={image} />
-    //     </div>
-    //     <div className="flex-1 flex flex-col ml-10 gap-3 max-h-[288px]">
-    //       {/* {beat.length > 0 &&
-    //         beat.map((beat) => (
-    //           <h1 className="text-white">Id: {beat.producer}</h1>
-    //         ))} */}
-    //       {<h1 className="text-white">{beat.producer}</h1>}
-    //       <h1 className="text-white">Title: {beat.uri}</h1>
-    //       <h1 className="text-white">Producer: </h1>
-    //       <h1 className="text-white">Supply left: </h1>
-    //       <h1 className="text-white">Price</h1>
-    //       <h1 className="text-white">Tags</h1>
-    //       <AudioPlayer url={audio} />
-    //     </div>
-    //   </div>
-    //   <div className="flex flex-col gap-5">
-    //     <p className="text-white">Player</p>
-
-    //     <button
-    //       className="bg-white max-w-[288px]"
-    //       type="submit"
-    //       onClick={handleSubmit}
-    //     >
-    //       Buy
-    //     </button>
-    //   </div>
-    // </div>
     <div className="flex flex-col items-center gap-5">
-      {isLoading && "Buying..."}
+      {isLoading && <LoadingScreen />}
       <div className="flex gap-8">
         <img src={image} className="w-[288px]" />
         <div className="flex flex-col gap-3">
