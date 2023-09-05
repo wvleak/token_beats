@@ -1,60 +1,10 @@
-"use client";
-
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useStateContext } from "@context";
 import Link from "next/link";
 
-const BeatCard = ({
-  beatId,
-  name,
-  producer,
-  maxSupply,
-  usdPrice,
-  sales,
-  uri,
-  handleClick,
-}) => {
-  const { getUserProfile } = useStateContext();
-
-  const [image, setImage] = useState("");
-  const [producerInfo, setProducer] = useState({ username: "", image: "" });
-  const supplyLeft = maxSupply - sales;
-
-  useEffect(() => {
-    const setProducerProfile = async () => {
-      const data = await getUserProfile(producer);
-      //console.log("UseEffect:", data);
-      if (data) {
-        setProducer({
-          ...producerInfo,
-          username: data.username,
-          image: data.image,
-        });
-      }
-    };
-    setProducerProfile();
-  }, [producer]);
-
-  useEffect(() => {
-    console.log(uri);
-    fetchInfo();
-  }, []);
-
-  const fetchInfo = async () => {
-    const response = await axios.get(uri);
-    const data = response.data;
-    console.log(response.data.image);
-    setImage(data.image);
-  };
-
+const BeatCardLayout = ({ producerInfo, beatInfo }) => {
   return (
-    <div
-      className="w-[288px]  bg-[#1c1c24] hover:shadow-2xl hover:shadow-gray-400 transition duration-200 cursor-pointer"
-      onClick={handleClick}
-    >
-      {image ? (
-        <img src={image} className="w-full h-[288px] object-cover " />
+    <div className="w-[288px]  bg-[#1c1c24] hover:shadow-2xl hover:shadow-gray-400 transition duration-200 cursor-pointer">
+      {beatInfo.image ? (
+        <img src={beatInfo.image} className="w-full h-[288px] object-cover " />
       ) : (
         <img
           src="https://www.billboard.com/wp-content/uploads/media/kanye-west-the-life-of-pablo-album-2016-billboard-1024.jpg?w=1024"
@@ -76,7 +26,10 @@ const BeatCard = ({
           </h3>
           <div className="mt-[5px] font-epilogue text-sm text-[#808191] text-left leading-[18px] truncate">
             <div className="group">
-              <Link className="flex gap-2 " href={`/profile/${producer}`}>
+              <Link
+                className="flex gap-2 "
+                href={`/profile/${producerInfo.address}`}
+              >
                 {producerInfo.image ? (
                   <img
                     src={producerInfo.image}
@@ -91,7 +44,7 @@ const BeatCard = ({
                   </span>
                 ) : (
                   <span className="mt-2 group-hover:text-gray-400 truncate">
-                    {producer}
+                    {producerInfo.address}
                   </span>
                 )}
               </Link>
@@ -102,12 +55,12 @@ const BeatCard = ({
         <div className="flex justify-between flex-wrap mt-[15px] gap-2">
           <div className="flex flex-col">
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
-              Supply left {supplyLeft.toString()}
+              Supply left {beatInfo.supplyLeft.toString()}
             </p>
           </div>
           <div className="flex flex-col">
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
-              {usdPrice.toString()}$
+              {beatInfo.usdPrice.toString()}$
             </p>
           </div>
         </div>
@@ -116,4 +69,4 @@ const BeatCard = ({
   );
 };
 
-export default BeatCard;
+export default BeatCardLayout;

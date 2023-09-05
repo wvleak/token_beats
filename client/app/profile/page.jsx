@@ -3,7 +3,7 @@
 import DisplayBeats from "@components/DisplayBeats";
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
-import CustomButton from "@components/CustomButton";
+import CustomButton from "@components/atoms/CustomButton";
 import { useRouter } from "next/navigation";
 
 const page = () => {

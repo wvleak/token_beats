@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useStateContext } from "../../context";
-import FormField from "@components/FormField";
-import CustomButton from "@components/CustomButton";
+import FormField from "@components/atoms/FormField";
+import CustomButton from "@components/atoms/CustomButton";
 
 import { create as ipfsHttpClient } from "ipfs-http-client";
 

@@ -3,10 +3,10 @@
 import { useStateContext } from "@context";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import AudioPlayer from "@components/AudioPlayer";
+import AudioPlayer from "@components/AudioPlayer/AudioPlayer";
 import axios from "axios";
 import Link from "next/link";
-import CustomButton from "@components/CustomButton";
+import CustomButton from "@components/atoms/CustomButton";
 import { create as ipfsClient } from "ipfs-http-client";
 
 const BeatDetails = ({ params }) => {

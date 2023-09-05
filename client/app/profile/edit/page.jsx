@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import FormField from "@components/FormField";
-import CustomButton from "@components/CustomButton";
+import FormField from "@components/atoms/FormField";
+import CustomButton from "@components/atoms/CustomButton";
 import { useStateContext } from "@context";
 
 const Profile = () => {

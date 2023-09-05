@@ -1,7 +1,7 @@
 import Link from "next/link";
-import CustomButton from "@components/CustomButton";
+import CustomButton from "@components/atoms/CustomButton";
 
-const NavbarHidden = ({ toggleDrawer, toggle, connect, address }) => {
+const SmLayout = ({ toggleDrawer, toggle, connect, disconnect, address }) => {
   return (
     <div className="sm:hidden">
       <img
@@ -47,9 +47,14 @@ const NavbarHidden = ({ toggleDrawer, toggle, connect, address }) => {
             }}
           />
         </div>
+        <img
+          src="assets/logout.svg"
+          onClick={disconnect}
+          className="items-center cursor-pointer"
+        />
       </div>
     </div>
   );
 };
 
-export default NavbarHidden;
+export default SmLayout;
