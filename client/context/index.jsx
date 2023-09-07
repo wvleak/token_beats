@@ -33,8 +33,10 @@ export const StateContextProvider = ({ children }) => {
       });
 
       console.log("contract call success", data);
+      return true;
     } catch (error) {
       console.log("contract call failure", error);
+      return false;
     }
   };
   const buyBeat = async (beatId, price) => {
