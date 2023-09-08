@@ -1,7 +1,7 @@
 import CustomButton from "./atoms/CustomButton";
 import { useRouter } from "next/navigation";
 
-const Modal = ({ open, confirmed, onClose }) => {
+const Modal = ({ open, confirmed, onClose, transaction }) => {
   const router = useRouter();
   return (
     <div
@@ -16,7 +16,7 @@ const Modal = ({ open, confirmed, onClose }) => {
             <div className="flex gap-5">
               <CustomButton
                 btnType="button"
-                title="Publish again"
+                title={`${transaction} again`}
                 styles="bg-black"
                 handleClick={onClose}
               />

@@ -1,6 +1,7 @@
 const AudioDisplay = ({ playing, togglePlay, waveformRef }) => {
   return (
-    <div className="bg-dark-charcoal  rounded-md p-5">
+    <div className="bg-black/[.65]  rounded-full p-5 relative">
+      <div className="absolute -z-10 -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75"></div>
       <div className="flex items-center gap-3 h-10">
         {playing ? (
           <img onClick={togglePlay} src="/assets/pause.png" width={50} />

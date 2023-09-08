@@ -46,8 +46,10 @@ export const StateContextProvider = ({ children }) => {
         value: price,
       });
       console.log("contract call success", data);
+      return true;
     } catch (error) {
       console.log("contract call failure", error);
+      return false;
     }
   };
 
