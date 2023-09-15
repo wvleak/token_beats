@@ -1,6 +1,7 @@
 import FormField from "@components/atoms/FormField";
 import CustomButton from "@components/atoms/CustomButton";
 import Label from "@components/atoms/Label";
+import TagInput from "@components/atoms/TagInput";
 
 const SellForm = ({ onFormFieldChange, onFileUpload, onSubmit, form }) => {
   return (
@@ -30,6 +31,7 @@ const SellForm = ({ onFormFieldChange, onFileUpload, onSubmit, form }) => {
         value={form.description}
         handleChange={(e) => onFormFieldChange("description", e)}
       />
+      <TagInput />
 
       <div className="flex flex-wrap gap-[40px]">
         <FormField
