@@ -24,13 +24,7 @@ const SellForm = ({ onFormFieldChange, onFileUpload, onSubmit, form }) => {
           onFileUpload={onFileUpload}
         />
       </div>
-      <FormField
-        labelName="Tags *"
-        placeholder="Write your tags"
-        isTextArea
-        value={form.description}
-        handleChange={(e) => onFormFieldChange("description", e)}
-      />
+
       <TagInput />
 
       <div className="flex flex-wrap gap-[40px]">
