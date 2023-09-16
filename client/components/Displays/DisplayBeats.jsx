@@ -1,8 +1,8 @@
 import { useRouter } from "next/navigation";
 
-import BeatCard from "./BeatCard/BeatCard";
-import Title from "./atoms/Title";
-import Loader from "./atoms/Loader";
+import BeatCard from "../BeatCard/BeatCard";
+import Title from "../atoms/Title";
+import Loader from "../atoms/Loader";
 
 const DisplayBeats = ({ title, isLoading, beats }) => {
   const router = useRouter();

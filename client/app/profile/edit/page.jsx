@@ -4,8 +4,8 @@ import { convertToBase64 } from "@utils/file_management";
 
 import { useState, useEffect, useRef } from "react";
 import { useStateContext } from "@context";
-import EditForm from "@pages/Profile/Edit/EditForm";
-import EditImage from "@pages/Profile/Edit/EditImage";
+import EditForm from "@components/pages/Profile/Edit/EditForm";
+import EditImage from "@components/pages/Profile/Edit/EditImage";
 import Title from "@components/atoms/Title";
 
 const Profile = () => {

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
-import DisplayBeats from "@components/DisplayBeats";
-import ProducerProfile from "@pages/Profile/ProducerProfile";
+import DisplayBeats from "@components/Displays/DisplayBeats";
+import ProducerProfile from "@components/pages/Profile/ProducerProfile";
 
 const SeeProfile = ({ params }) => {
   const { getProducerBeats, contract, getUserProfile } = useStateContext();

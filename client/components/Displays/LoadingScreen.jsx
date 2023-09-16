@@ -1,4 +1,4 @@
-import Loader from "./atoms/Loader";
+import Loader from "../atoms/Loader";
 
 const LoadingScreen = () => {
   return (

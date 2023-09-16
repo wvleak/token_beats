@@ -7,6 +7,7 @@ import { useStateContext } from "@context";
 import BeatCardLayout from "./BeatCardLayout";
 
 const BeatCard = ({
+  name,
   producer,
   maxSupply,
   usdPrice,
@@ -14,8 +15,8 @@ const BeatCard = ({
   uri,
   handleClick,
 }) => {
-  const { getUserProfile } = useStateContext();
-
+  const { getUserProfile, getBeatTags } = useStateContext();
+  const [tags, setTags] = useState([]);
   const [image, setImage] = useState("");
   useEffect(() => {
     const fetchImage = async () => {
@@ -29,9 +30,11 @@ const BeatCard = ({
   const supplyLeft = maxSupply - sales;
 
   const beatInfo = {
+    name: name,
     image: image,
     supplyLeft: supplyLeft,
     usdPrice: usdPrice,
+    tags: tags,
   };
 
   const [producerInfo, setProducerInfo] = useState({
@@ -53,6 +56,16 @@ const BeatCard = ({
     };
     setProducerProfile();
   }, [producer]);
+
+  useEffect(() => {
+    const setBeatTags = async () => {
+      const data = await getBeatTags(name);
+      if (data) {
+        setTags(data.tags);
+      }
+    };
+    setBeatTags();
+  }, [name]);
 
   return (
     <div onClick={handleClick}>

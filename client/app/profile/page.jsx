@@ -1,9 +1,9 @@
 "use client";
 
-import DisplayBeats from "@components/DisplayBeats";
+import DisplayBeats from "@components/Displays/DisplayBeats";
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
-import ProfileDisplay from "@pages/Profile/ProfileDisplay";
+import ProfileDisplay from "@components/pages/Profile/ProfileDisplay";
 
 const page = () => {
   const [isLoading, setIsLoading] = useState(false);

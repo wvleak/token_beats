@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Tag from "@components/atoms/Tag";
 
 const BeatCardLayout = ({ producerInfo, beatInfo }) => {
   return (
@@ -15,14 +16,16 @@ const BeatCardLayout = ({ producerInfo, beatInfo }) => {
 
       <div className="flex flex-col p-4">
         <div className="flex flex-row items-center mb-[18px]">
-          <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[12px] text-[#808191]">
-            #Tag (ex: Hip-Hop)
-          </p>
+          <ul className="flex text-white font-small">
+            {beatInfo.tags.map((tag, index) => (
+              <Tag tag={tag} index={index} input={false} />
+            ))}
+          </ul>
         </div>
 
         <div className="block">
           <h3 className="font-epilogue font-semibold text-[16px] text-white text-left leading-[26px] truncate">
-            {name}
+            {beatInfo.name}
           </h3>
           <div className="mt-[5px] font-epilogue text-sm text-[#808191] text-left leading-[18px] truncate">
             <div className="group">

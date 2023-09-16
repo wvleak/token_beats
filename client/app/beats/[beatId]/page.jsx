@@ -4,11 +4,11 @@ import { useStateContext } from "@context";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import LoadingScreen from "@components/LoadingScreen";
-import BeatDetails from "@pages/Beat/BeatDetails";
-import AudioSection from "@pages/Beat/AudioSection";
-import BuyingSection from "@pages/Beat/BuyingSection";
-import Modal from "@components/Modal";
+import LoadingScreen from "@components/Displays/LoadingScreen";
+import BeatDetails from "@components/pages/Beat/BeatDetails";
+import AudioSection from "@components/pages/Beat/AudioSection";
+import BuyingSection from "@components/pages/Beat/BuyingSection";
+import Modal from "@components/Displays/Modal";
 
 const BeatPage = ({ params }) => {
   const { buyBeat, getUserProfile, getBeat, contract, getEthPrice } =

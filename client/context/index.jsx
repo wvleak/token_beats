@@ -144,6 +144,21 @@ export const StateContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const getBeatTags = async (title) => {
+    try {
+      const response = await fetch(`/api/beats/${title}`, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //TODO get owned beats
 
@@ -162,6 +177,7 @@ export const StateContextProvider = ({ children }) => {
         getUserProfile,
         getBeat,
         getEthPrice,
+        getBeatTags,
       }}
     >
       {children}

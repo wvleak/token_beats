@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useStateContext } from "../../context";
 import { create as ipfsHttpClient } from "ipfs-http-client";
-import LoadingScreen from "@components/LoadingScreen";
+import LoadingScreen from "@components/Displays/LoadingScreen";
 import Title from "@components/atoms/Title";
-import SellForm from "@pages/Sell/SellForm";
-import Modal from "@components/Modal";
+import SellForm from "@components/pages/Sell/SellForm";
+import Modal from "@components/Displays/Modal";
 
 const SellBeats = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +44,17 @@ const SellBeats = () => {
 
   const { publishBeat } = useStateContext();
   const [isConfirmed, setIsConfirmed] = useState(null);
+  const [tags, setTags] = useState([]);
+  const removeTags = (indexToRemove) => {
+    setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+  };
+  const addTags = (e) => {
+    if (e.target.value !== "") {
+      setTags([...tags, e.target.value]);
+      //props.selectedTags([...tags, e.target.value]);
+      e.target.value = "";
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nftMetadata = {
@@ -62,6 +73,23 @@ const SellBeats = () => {
 
     setIsLoading(true);
     const confirmation = await publishBeat({ ...form, uri: uri });
+    //add beat and tags to db
+    try {
+      const response = await fetch("/api/beats/new", {
+        method: "POST",
+        body: JSON.stringify({
+          title: form.title,
+          tags: tags,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("beat added ok");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     setIsLoading(false);
     setIsConfirmed(confirmation);
     toggleOpen();
@@ -96,6 +124,9 @@ const SellBeats = () => {
         onFormFieldChange={handleFormFieldChange}
         onFileUpload={handleFileUpload}
         form={form}
+        tags={tags}
+        addTags={addTags}
+        removeTags={removeTags}
       />
     </div>
   );

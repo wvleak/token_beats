@@ -1,9 +1,17 @@
 import FormField from "@components/atoms/FormField";
 import CustomButton from "@components/atoms/CustomButton";
 import Label from "@components/atoms/Label";
-import TagInput from "@components/atoms/TagInput";
+import TagInput from "@components/pages/Sell/TagInput";
 
-const SellForm = ({ onFormFieldChange, onFileUpload, onSubmit, form }) => {
+const SellForm = ({
+  onFormFieldChange,
+  onFileUpload,
+  onSubmit,
+  form,
+  tags,
+  addTags,
+  removeTags,
+}) => {
   return (
     <form
       onSubmit={onSubmit}
@@ -25,7 +33,7 @@ const SellForm = ({ onFormFieldChange, onFileUpload, onSubmit, form }) => {
         />
       </div>
 
-      <TagInput />
+      <TagInput tags={tags} addTags={addTags} removeTags={removeTags} />
 
       <div className="flex flex-wrap gap-[40px]">
         <FormField

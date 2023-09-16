@@ -1,4 +1,4 @@
-import CustomButton from "./atoms/CustomButton";
+import CustomButton from "../atoms/CustomButton";
 import { useRouter } from "next/navigation";
 
 const Modal = ({ open, confirmed, onClose, transaction }) => {

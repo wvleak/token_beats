@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
-import DisplayBeats from "@components/DisplayBeats";
+import DisplayBeats from "@components/Displays/DisplayBeats";
 
 const Beats = () => {
   const [isLoading, setIsLoading] = useState(false);
