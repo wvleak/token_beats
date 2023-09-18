@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CustomButton from "@components/atoms/CustomButton";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const SmLayout = ({ toggleDrawer, toggle, connect, disconnect, address }) => {
   return (
@@ -47,10 +48,10 @@ const SmLayout = ({ toggleDrawer, toggle, connect, disconnect, address }) => {
             }}
           />
         </div>
-        <img
-          src="assets/logout.svg"
+        <LogoutIcon
           onClick={disconnect}
-          className="items-center cursor-pointer"
+          fontSize="large"
+          className="cursor-pointer text-white ml-5 mt-4"
         />
       </div>
     </div>

@@ -43,3 +43,7 @@ body {
 .desc {
   @apply mt-5 text-lg text-gray-300 sm:text-xl max-w-2xl;
 }
+
+.text-xs {
+  font-size: 11px;
+}

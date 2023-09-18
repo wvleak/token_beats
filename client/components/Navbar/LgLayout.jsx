@@ -1,5 +1,6 @@
 import CustomButton from "@components/atoms/CustomButton";
 import Link from "next/link";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const LgLayout = ({ address, connect, disconnect, user, router }) => {
   return (
@@ -36,10 +37,14 @@ const LgLayout = ({ address, connect, disconnect, user, router }) => {
               )}
             </div>
           </Link>
-          <img
+          {/* <img
             src="assets/logout.svg"
             onClick={disconnect}
             className="items-center cursor-pointer"
+          /> */}
+          <LogoutIcon
+            onClick={disconnect}
+            className="mt-4 cursor-pointer hover:text-gray-400"
           />
         </div>
       )}

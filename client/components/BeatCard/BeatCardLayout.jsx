@@ -16,7 +16,7 @@ const BeatCardLayout = ({ producerInfo, beatInfo }) => {
 
       <div className="flex flex-col p-4">
         <div className="flex flex-row items-center mb-[18px]">
-          <ul className="flex text-white font-small">
+          <ul className="flex text-white">
             {beatInfo.tags.map((tag, index) => (
               <Tag tag={tag} index={index} input={false} />
             ))}

@@ -1,8 +1,14 @@
 import CustomButton from "@components/atoms/CustomButton";
+import MicNoneIcon from "@mui/icons-material/MicNone";
+import LayersIcon from "@mui/icons-material/Layers";
+import PodcastsIcon from "@mui/icons-material/Podcasts";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import RadioIcon from "@mui/icons-material/Radio";
+import MicExternalOnIcon from "@mui/icons-material/MicExternalOn";
 
 const BuyingSection = ({ supply, price, onSubmit }) => {
   return (
-    <div className="h-[450px] max-w-[800px] mt-8 flex flex-col bg-[#3a3a4368] rounded-[10px] p-5 gap-5 divide-y  divide-zinc-500">
+    <div className="max-w-[800px] mt-8 flex flex-col bg-[#3a3a4368] rounded-[10px] p-5 gap-5 divide-y  divide-zinc-500">
       <div className="max-w-[800px] flex justify-between">
         <section className="flex flex-col items-center gap-2">
           <p className="text-white text-3xl">Supply left</p>
@@ -23,8 +29,29 @@ const BuyingSection = ({ supply, price, onSubmit }) => {
           ></CustomButton>
         </div>
       </div>
-      <div>
-        <h1 className="text-white text-xl mt-2 ">License terms</h1>
+      <div className="flex  flex-col  gap-8">
+        <h1 className="text-white text-xl mt-2 ">Usage terms</h1>
+        <ul className="flex justify-between flex-wrap gap-5 text-gray-500  text-xs">
+          <li>
+            <MicNoneIcon fontSize="medium" />
+            USED FOR MUSIC RECORDING
+          </li>
+          <li>
+            <LayersIcon /> DISTRIBUTE UP TO UNLIMITED COPIES
+          </li>
+          <li>
+            <PodcastsIcon /> UNLIMITED ONLINE AUDIO STREAMS
+          </li>
+          <li>
+            <VideocamIcon /> UNLIMITED MUSIC VIDEO
+          </li>
+          <li>
+            <RadioIcon /> RADIO BROADCASTING RIGHTS (UNLIMITED STATIONS)
+          </li>
+          <li>
+            <MicExternalOnIcon /> FOR PROFIT LIVE PERFORMANCES
+          </li>
+        </ul>
       </div>
     </div>
   );

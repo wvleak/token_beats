@@ -11,8 +11,14 @@ import BuyingSection from "@components/pages/Beat/BuyingSection";
 import Modal from "@components/Displays/Modal";
 
 const BeatPage = ({ params }) => {
-  const { buyBeat, getUserProfile, getBeat, contract, getEthPrice } =
-    useStateContext();
+  const {
+    buyBeat,
+    getUserProfile,
+    getBeat,
+    contract,
+    getEthPrice,
+    getBeatTags,
+  } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [beat, setBeat] = useState({});
   const [image, setImage] = useState("");
@@ -20,6 +26,7 @@ const BeatPage = ({ params }) => {
   const [audio, setAudio] = useState("");
   const [price, setPrice] = useState("");
   const [supply, setSupply] = useState("");
+  const [tags, setTags] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -62,6 +69,16 @@ const BeatPage = ({ params }) => {
     setProducerProfile();
   }, [beat]);
 
+  useEffect(() => {
+    const setBeatTags = async () => {
+      const data = await getBeatTags(beat.name);
+      if (data) {
+        setTags(data.tags);
+      }
+    };
+    setBeatTags();
+  }, [beat.name]);
+
   const [isConfirmed, setIsConfirmed] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,7 +108,7 @@ const BeatPage = ({ params }) => {
         onClose={toggleOpen}
         transaction="Buy"
       />
-      <BeatDetails beat={beat} image={image} producer={producer} />
+      <BeatDetails beat={beat} image={image} producer={producer} tags={tags} />
       <div className="flex-col w-[80%]">
         <AudioSection url={audio} />
         <BuyingSection supply={supply} price={price} onSubmit={handleSubmit} />
