@@ -1,63 +1,69 @@
 import React, { useContext, createContext } from "react";
-
 import {
   useAddress,
   useContract,
   useMetamask,
   useContractWrite,
 } from "@thirdweb-dev/react";
-import { ethers } from "ethers";
 import { contract_abi } from "@utils/contract_abi";
 import { useDisconnect } from "@thirdweb-dev/react";
 
+// Create a context to manage state and actions.
 const StateContext = createContext();
 
+// Provider component that wraps the entire app to provide state and actions.
 export const StateContextProvider = ({ children }) => {
+  // Get the contract instance and methods.
   const { contract } = useContract(
     "0xD9fb74600770eB942f34BF455031f1F3Ba754871",
     contract_abi
-  ); //"0x560ABE5FE6dbcC809112Eb0f1F3b52D4860975A6"
+  );
   const { mutateAsync: listBeat, isLoading } = useContractWrite(
     contract,
     "listBeat"
   );
 
+  // Get the user's address, connect, and disconnect functions.
   const address = useAddress();
   const connect = useMetamask();
   const disconnect = useDisconnect();
 
+  // Function to publish a new beat.
   const publishBeat = async (form) => {
     try {
       const data = await listBeat({
         args: [form.title, form.maxSupply, form.usdPrice, form.uri],
       });
 
-      console.log("contract call success", data);
+      console.log("Contract call success", data);
       return true;
     } catch (error) {
-      console.log("contract call failure", error);
-      return false;
-    }
-  };
-  const buyBeat = async (beatId, price) => {
-    console.log("Entered buy beat");
-    try {
-      const data = await contract.call("buyBeat", [beatId], {
-        value: price,
-      });
-      console.log("contract call success", data);
-      return true;
-    } catch (error) {
-      console.log("contract call failure", error);
+      console.log("Contract call failure", error);
       return false;
     }
   };
 
+  // Function to buy a beat.
+  const buyBeat = async (beatId, price) => {
+    try {
+      const data = await contract.call("buyBeat", [beatId], {
+        value: price,
+      });
+      console.log("Contract call success", data);
+      return true;
+    } catch (error) {
+      console.log("Contract call failure", error);
+      return false;
+    }
+  };
+
+  // Function to get the ETH price based on USD price.
   const getEthPrice = async (usdPrice) => {
     const ethPrice = await contract.call("getEthPrice", [usdPrice]);
     return ethPrice;
   };
 
+  // Function to get all beats.
   const getAllBeats = async () => {
     const beats = await contract.call("getAllBeats");
 
@@ -73,6 +79,8 @@ export const StateContextProvider = ({ children }) => {
 
     return parsedBeats;
   };
+
+  // Function to get the latest beats.
   const getLastBeats = async () => {
     const beats = await contract.call("getLastBeats");
 
@@ -89,28 +97,7 @@ export const StateContextProvider = ({ children }) => {
     return parsedBeats;
   };
 
-  // const getLastBeats = async () => {
-  //   try {
-  //     const beats = await contract.call("getLastBeats");
-
-  //     const parsedBeats = beats.map((beat) => ({
-  //       id: beat.beatId,
-  //       name: beat.name,
-  //       producer: beat.producer,
-  //       maxSupply: beat.maxSupply,
-  //       usdPrice: beat.usdPrice,
-  //       sales: beat.sales,
-  //       uri: beat.uri,
-  //     }));
-
-  //     console.log("contract call success", data);
-  //     return parsedBeats;
-  //   } catch (error) {
-  //     console.log("contract call failure", error);
-  //     return [];
-  //   }
-  // };
-
+  // Function to get beats by a specific producer.
   const getProducerBeats = async (producerAddress) => {
     const allBeats = await getAllBeats();
 
@@ -121,6 +108,7 @@ export const StateContextProvider = ({ children }) => {
     return filteredBeats;
   };
 
+  // Function to get a specific beat by its ID.
   const getBeat = async (beatId) => {
     const allBeats = await getAllBeats();
 
@@ -129,6 +117,7 @@ export const StateContextProvider = ({ children }) => {
     return filteredBeats;
   };
 
+  // Function to get user profile data based on the address.
   const getUserProfile = async (userAddress) => {
     try {
       const response = await fetch(`/api/profile/${userAddress}`, {
@@ -137,13 +126,14 @@ export const StateContextProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-
         return data;
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  // Function to get beat tags based on the title.
   const getBeatTags = async (title) => {
     try {
       const response = await fetch(`/api/beats/${title}`, {
@@ -152,15 +142,12 @@ export const StateContextProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-
         return data;
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  //TODO get owned beats
 
   return (
     <StateContext.Provider
@@ -185,4 +172,5 @@ export const StateContextProvider = ({ children }) => {
   );
 };
 
+// Custom hook to access the state and actions.
 export const useStateContext = () => useContext(StateContext);

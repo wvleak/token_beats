@@ -5,41 +5,51 @@ import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
 import ProfileDisplay from "@components/pages/Profile/ProfileDisplay";
 
-const page = () => {
+const Page = () => {
+  // Initialize state and context
   const [isLoading, setIsLoading] = useState(false);
   const { contract, address, getProducerBeats, getUserProfile } =
     useStateContext();
 
+  // Initialize beats and user state
   const [beats, setBeats] = useState([]);
+  const [user, setUser] = useState({ username: "", image: "" });
+
+  // Function to fetch the user's beats
   const fetchBeats = async () => {
     setIsLoading(true);
     const data = await getProducerBeats(address);
     setBeats(data);
     setIsLoading(false);
-    console.log(beats);
   };
+
+  // Fetch beats when the contract or address changes
   useEffect(() => {
     if (contract) fetchBeats();
   }, [address, contract]);
 
-  const [user, setUser] = useState({ username: "", image: "" });
+  // Function to fetch and set the user profile
+  const setUserProfile = async () => {
+    const data = await getUserProfile(address);
+    if (data) {
+      setUser({ ...user, username: data.username, image: data.image });
+    }
+  };
+
+  // Fetch and set user profile information
   useEffect(() => {
-    const setUserProfile = async () => {
-      const data = await getUserProfile(address);
-      console.log("UseEffect:", data);
-      if (data) {
-        setUser({ ...user, username: data.username, image: data.image });
-      }
-    };
     setUserProfile();
   }, [address]);
 
   return (
     <>
+      {/* Display the user's profile */}
       <ProfileDisplay user={user} address={address} />
+
+      {/* Display the user's beats */}
       <DisplayBeats title="Your Beats" isLoading={isLoading} beats={beats} />
     </>
   );
 };
 
-export default page;
+export default Page;

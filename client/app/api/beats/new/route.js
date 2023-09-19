@@ -7,7 +7,6 @@ export const POST = async (request) => {
     await connectToDB();
     const newBeat = new Beat({ title, tags });
     await newBeat.save();
-    console.log("success tag");
     return new Response(JSON.stringify(request), { status: 201 });
   } catch (error) {
     console.log(error);

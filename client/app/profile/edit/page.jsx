@@ -9,33 +9,40 @@ import EditImage from "@components/pages/Profile/Edit/EditImage";
 import Title from "@components/atoms/Title";
 
 const Profile = () => {
+  // Access required functions and data from the context
   const { address, getUserProfile } = useStateContext();
 
+  // Initialize profile state
   const [profile, setProfile] = useState({ username: "", image: "" });
+
+  // Fetch user profile information when the address changes
   useEffect(() => {
     const setUserProfile = async () => {
       const data = await getUserProfile(address);
-      console.log("UseEffect:", data);
+
       if (data) {
         setProfile({ ...profile, username: data.username, image: data.image });
       }
     };
-    setUserProfile();
-  }, [address]);
 
+    setUserProfile();
+  }, [address, profile, getUserProfile]);
+
+  // Handle form field changes
   const handleFormFieldChange = (fieldName, e) => {
     setProfile({ ...profile, [fieldName]: e.target.value });
   };
 
+  // Handle file upload
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setProfile({ ...profile, image: base64 });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(profile);
     try {
       const response = await fetch("/api/profile/edit", {
         method: "POST",
@@ -47,7 +54,7 @@ const Profile = () => {
       });
 
       if (response.ok) {
-        console.log("Went ok");
+        console.log("Request successful");
       }
     } catch (error) {
       console.log(error);
@@ -55,6 +62,8 @@ const Profile = () => {
   };
 
   const inputRef = useRef(null);
+
+  // Handle image click to trigger file input
   const handleImageClick = () => {
     inputRef.current.click();
   };

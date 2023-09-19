@@ -9,64 +9,47 @@ const Beats = () => {
   const searchParams = useSearchParams();
 
   const tags = searchParams.get("tags");
-  //console.log("Search", search);
 
   const [isLoading, setIsLoading] = useState(false);
   const [beats, setBeats] = useState([]);
   const [allBeats, setAllBeats] = useState([]);
 
   const { contract, address, getAllBeats } = useStateContext();
-  let beatsWithTags;
 
+  // Fetch beats from the blockchain contract
   const fetchBeats = async () => {
     setIsLoading(true);
     const data = await getAllBeats();
     setBeats(data);
     setAllBeats(data);
     setIsLoading(false);
-    console.log(beats);
   };
+
   useEffect(() => {
+    // Trigger fetching beats when the contract, address, or component mounts
     if (contract) fetchBeats();
   }, [address, contract]);
 
   useEffect(() => {
+    // Search for beats based on tags when tags or beats change
     searchBeats(tags);
   }, [beats, tags]);
 
-  const searchBeats = async () => {
+  const searchBeats = async (tagsToSearch) => {
     let taggedBeats = [];
-    if (tags) {
-      taggedBeats = await getTags(tags);
-    } else if (inputValue) {
-      taggedBeats = await getTags(inputValue);
+    if (tagsToSearch) {
+      taggedBeats = await getTags(tagsToSearch);
     }
-    //const taggedBeats = await getTags(inputValue);
-    // console.log("Data", data);
 
-    if (inputValue) {
-      //setBeats(allBeats.filter((beat) => beat.name == inputValue));
-      setBeats(allBeats.filter((beat) => taggedBeats.includes(beat.name)));
-    } else if (tags) {
-      //setBeats(allBeats.filter((beat) => beat.name == inputValue));
+    if (tagsToSearch) {
       setBeats(allBeats.filter((beat) => taggedBeats.includes(beat.name)));
     } else {
       setBeats(allBeats);
     }
   };
-  const [inputValue, setInputValue] = useState("");
 
-  // Function to handle input changes
-  const handleInputChange = (e) => {
-    // Update the state with the new input value
-    setInputValue(e.target.value);
-  };
-
-  //Get tags
-  //const tags = ["HipHop", "test"];
+  // Function to get tags from the API
   const getTags = async (input) => {
-    console.log("Entered");
-    //const tagsString = tags.join(",");
     try {
       const response = await fetch(`/api/beats/tags/${input}`, {
         method: "GET",
@@ -74,9 +57,7 @@ const Beats = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("data", data);
         const taggedBeats = data.map((beat) => beat.title);
-        console.log("allBeats", taggedBeats);
 
         return taggedBeats;
       }
@@ -87,12 +68,7 @@ const Beats = () => {
 
   return (
     <div>
-      <div>
-        <input type="text" value={inputValue} onChange={handleInputChange} />
-        <button onClick={searchBeats} className="bg-white">
-          Get Value
-        </button>
-      </div>
+      {/* Display the list of beats */}
       <DisplayBeats title="All Beats" isLoading={isLoading} beats={beats} />
     </div>
   );

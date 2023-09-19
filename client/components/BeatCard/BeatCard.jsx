@@ -13,7 +13,7 @@ const BeatCard = ({
   usdPrice,
   sales,
   uri,
-  handleClick,
+  onClick,
 }) => {
   const { getUserProfile, getBeatTags } = useStateContext();
   const [tags, setTags] = useState([]);
@@ -68,7 +68,7 @@ const BeatCard = ({
   }, [name]);
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={onClick}>
       <BeatCardLayout producerInfo={producerInfo} beatInfo={beatInfo} />
     </div>
   );

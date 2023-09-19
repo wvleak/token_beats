@@ -1,69 +1,58 @@
 import React, { useState } from "react";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowForwardIos";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
+// The Carousel component displays a set of cards with navigation buttons.
 const Carousel = ({ cards }) => {
+  // Define the initial range for card display.
   const [range, setRange] = useState({
     startRange: 0,
     endRange: 3,
   });
 
+  // Calculate the total number of cards.
   const cardsLength = cards.length;
-  const next = () => {
-    console.log(
-      "🚀 ~ file: carousel.jsx:11 ~ next ~ cardsLength:",
-      cardsLength
-    );
-    console.log("range:", range.startRange);
 
+  // Function to move to the next set of cards.
+  const next = () => {
     if (range.endRange < cardsLength) {
-      setRange({ startRange: ++range.startRange, endRange: ++range.endRange });
+      setRange({
+        startRange: range.startRange + 1,
+        endRange: range.endRange + 1,
+      });
     }
   };
-  const prev = () => {
-    console.log("range:", range.startRange);
 
+  // Function to move to the previous set of cards.
+  const prev = () => {
     if (range.startRange > 0) {
-      setRange({ startRange: --range.startRange, endRange: --range.endRange });
+      setRange({
+        startRange: range.startRange - 1,
+        endRange: range.endRange - 1,
+      });
     }
   };
 
   return (
     <div className="flex flex-row">
-      {/* <svg data-testid="ArrowForwardIosIcon"></svg> */}
-      {/* <img
-        className="w-10 h-10 mr-3 self-center rotate-180"
-        src="assets/arrow.png"
-        onClick={prev}
-      /> */}
-      {range.startRange == 0 ? null : (
+      {/* Render the "Previous" button if there are previous cards */}
+      {range.startRange === 0 ? null : (
         <NavigateBeforeIcon
           fontSize="large"
           className="text-white cursor-pointer self-center"
           onClick={prev}
         />
       )}
-      {/* <NavigateBeforeIcon
-        fontSize="large"
-        className="text-white cursor-pointer self-center"
-        onClick={prev}
-      /> */}
+
       <div className="flex flex-row gap-4">
-        {cards.slice(range.startRange, range.endRange).map((card) => card)}
+        {/* Display the cards within the specified range */}
+        {cards.slice(range.startRange, range.endRange).map((card, index) => (
+          <div key={index}>{card}</div>
+        ))}
       </div>
-      {/* <img
-        className="w-10 h-10 ml-3 self-center"
-        src="assets/arrow.png"
-        onClick={next}
-      /> */}
-      {/* <NavigateNextIcon
-        fontSize="large"
-        className="text-white cursor-pointer self-center"
-        onClick={next}
-      /> */}
-      {range.endRange == cardsLength ? null : (
+
+      {/* Render the "Next" button if there are more cards */}
+      {range.endRange === cardsLength ? null : (
         <NavigateNextIcon
           fontSize="large"
           className="text-white cursor-pointer self-center"

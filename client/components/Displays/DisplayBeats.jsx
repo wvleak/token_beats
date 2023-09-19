@@ -13,7 +13,7 @@ const DisplayBeats = ({ title, isLoading, beats }) => {
   return (
     <>
       <Title title={`${title} (${beats.length})`} styles="text-white" />
-      <div className="flex flex-wrap mt-[20px] gap-[26px]">
+      <div className="flex justify-center flex-wrap mt-[20px] gap-[26px]">
         {/* Loader */}
         {isLoading && <Loader styles="w-[100px] h-[100px] object-contain" />}
 
@@ -31,7 +31,7 @@ const DisplayBeats = ({ title, isLoading, beats }) => {
             <BeatCard
               key={beat.beatId}
               {...beat}
-              handleClick={() => handleNavigate(beat)}
+              onClick={() => handleNavigate(beat)}
             />
           ))}
       </div>

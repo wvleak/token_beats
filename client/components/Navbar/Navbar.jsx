@@ -18,7 +18,7 @@ const Navbar = () => {
   useEffect(() => {
     const setUserProfile = async () => {
       const data = await getUserProfile(address);
-      console.log("UseEffect:", data);
+
       if (data) {
         setUser({ ...user, username: data.username, image: data.image });
       }

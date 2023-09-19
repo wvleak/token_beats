@@ -9,8 +9,7 @@ export const GET = async (request, { params }) => {
     const beat = await Beat.findOne({
       title: params.title.toString(),
     });
-    if (!beat) return new Response("User Not Found", { status: 404 });
-    //console.log(user);
+    if (!beat) return new Response("Beat Not Found", { status: 404 });
 
     return new Response(JSON.stringify(beat), { status: 200 });
   } catch (error) {

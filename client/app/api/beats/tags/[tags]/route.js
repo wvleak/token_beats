@@ -9,7 +9,7 @@ export const GET = async (req, { params }) => {
   //console.log("test");
   try {
     await connectToDB();
-    //console.log("Requete:", req.url);
+    console.log("Requete:", req.url);
     //const { tags } = req.query;
     const tags = params.tags;
     console.log("Tags:", tags);

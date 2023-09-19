@@ -1,3 +1,6 @@
+import React from "react";
+
+// The Hero component displays a hero section with a title and a button.
 const Hero = ({ onClick, address }) => {
   return (
     <>

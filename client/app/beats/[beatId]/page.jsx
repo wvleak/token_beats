@@ -11,6 +11,7 @@ import BuyingSection from "@components/pages/Beat/BuyingSection";
 import Modal from "@components/Displays/Modal";
 
 const BeatPage = ({ params }) => {
+  // Access required functions and data from the context
   const {
     buyBeat,
     getUserProfile,
@@ -19,6 +20,7 @@ const BeatPage = ({ params }) => {
     getEthPrice,
     getBeatTags,
   } = useStateContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const [beat, setBeat] = useState({});
   const [image, setImage] = useState("");
@@ -29,6 +31,7 @@ const BeatPage = ({ params }) => {
   const [tags, setTags] = useState([]);
   const router = useRouter();
 
+  // Fetch beat details when the contract is available
   useEffect(() => {
     const fetchBeat = async () => {
       if (typeof contract !== "undefined") {
@@ -36,10 +39,10 @@ const BeatPage = ({ params }) => {
         setBeat(data[0]);
       }
     };
-
     fetchBeat();
-  }, [contract]);
+  }, [contract, params.beatId]);
 
+  // Fetch additional beat information once beat details are available
   useEffect(() => {
     const fetchInfo = async () => {
       if (Object.keys(beat).length !== 0) {
@@ -55,6 +58,7 @@ const BeatPage = ({ params }) => {
     fetchInfo();
   }, [beat]);
 
+  // Fetch producer profile information
   useEffect(() => {
     const setProducerProfile = async () => {
       const data = await getUserProfile(beat.producer);
@@ -67,8 +71,9 @@ const BeatPage = ({ params }) => {
       }
     };
     setProducerProfile();
-  }, [beat]);
+  }, [beat, producer, getUserProfile]);
 
+  // Fetch tags associated with the beat
   useEffect(() => {
     const setBeatTags = async () => {
       const data = await getBeatTags(beat.name);
@@ -77,28 +82,28 @@ const BeatPage = ({ params }) => {
       }
     };
     setBeatTags();
-  }, [beat.name]);
+  }, [beat.name, getBeatTags]);
 
   const [isConfirmed, setIsConfirmed] = useState(null);
+
+  // Handle the submission of the purchase form
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ethPrice = await getEthPrice(price);
-    console.log(ethPrice.toString());
-
     setIsLoading(true);
     const confirmation = await buyBeat(params.beatId, ethPrice.toString());
     setIsLoading(false);
     setIsConfirmed(confirmation);
     toggleOpen();
-    //router.push("/");
-
-    console.log("Submit");
   };
 
   const [isOpen, setIsOpen] = useState(false);
+
+  // Toggle the modal open/close
   const toggleOpen = () => {
     setIsOpen((prev) => !prev);
   };
+
   return (
     <div className="flex items-center gap-5 w-full">
       {isLoading && <LoadingScreen />}
