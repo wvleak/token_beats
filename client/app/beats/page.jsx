@@ -3,7 +3,14 @@ import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
 import DisplayBeats from "@components/Displays/DisplayBeats";
 
+import { useSearchParams } from "next/navigation";
+
 const Beats = () => {
+  const searchParams = useSearchParams();
+
+  const tags = searchParams.get("tags");
+  //console.log("Search", search);
+
   const [isLoading, setIsLoading] = useState(false);
   const [beats, setBeats] = useState([]);
   const [allBeats, setAllBeats] = useState([]);
@@ -21,15 +28,28 @@ const Beats = () => {
   };
   useEffect(() => {
     if (contract) fetchBeats();
-    beats.forEach((beat) => {});
   }, [address, contract]);
 
+  useEffect(() => {
+    searchBeats(tags);
+  }, [beats, tags]);
+
   const searchBeats = async () => {
-    const data = await getTags();
-    console.log("Data", data);
+    let taggedBeats = [];
+    if (tags) {
+      taggedBeats = await getTags(tags);
+    } else if (inputValue) {
+      taggedBeats = await getTags(inputValue);
+    }
+    //const taggedBeats = await getTags(inputValue);
+    // console.log("Data", data);
 
     if (inputValue) {
-      setBeats(allBeats.filter((beat) => beat.name == inputValue));
+      //setBeats(allBeats.filter((beat) => beat.name == inputValue));
+      setBeats(allBeats.filter((beat) => taggedBeats.includes(beat.name)));
+    } else if (tags) {
+      //setBeats(allBeats.filter((beat) => beat.name == inputValue));
+      setBeats(allBeats.filter((beat) => taggedBeats.includes(beat.name)));
     } else {
       setBeats(allBeats);
     }
@@ -43,18 +63,22 @@ const Beats = () => {
   };
 
   //Get tags
-  const tags = ["hiphop", "test"];
-  const getTags = async () => {
-    const tagsString = tags.join(",");
+  //const tags = ["HipHop", "test"];
+  const getTags = async (input) => {
+    console.log("Entered");
+    //const tagsString = tags.join(",");
     try {
-      const response = await fetch(`/api/beats/tags?tags=${tagsString}`, {
+      const response = await fetch(`/api/beats/tags/${input}`, {
         method: "GET",
       });
 
       if (response.ok) {
         const data = await response.json();
+        console.log("data", data);
+        const taggedBeats = data.map((beat) => beat.title);
+        console.log("allBeats", taggedBeats);
 
-        return data;
+        return taggedBeats;
       }
     } catch (error) {
       console.log(error);
@@ -65,7 +89,9 @@ const Beats = () => {
     <div>
       <div>
         <input type="text" value={inputValue} onChange={handleInputChange} />
-        <button onClick={searchBeats}>Get Value</button>
+        <button onClick={searchBeats} className="bg-white">
+          Get Value
+        </button>
       </div>
       <DisplayBeats title="All Beats" isLoading={isLoading} beats={beats} />
     </div>

@@ -3,8 +3,6 @@ import { connectToDB } from "@utils/database";
 
 export const POST = async (request) => {
   const { address, username, image } = await request.json();
-  //   console.log("username:", username);
-  //   console.log("image:", image);
   try {
     await connectToDB();
     const user = await User.findOne({ address: address });
