@@ -34,12 +34,12 @@ const Carousel = ({ cards }) => {
   };
 
   return (
-    <div className="flex flex-row h-[500px]">
+    <div className="relative flex flex-row h-[500px]">
       {/* Render the "Previous" button if there are previous cards */}
       {range.startRange === 0 ? null : (
         <NavigateBeforeIcon
           fontSize="large"
-          className="text-white cursor-pointer self-center"
+          className="text-white cursor-pointer self-center absolute left-4 transition-transform transform hover:scale-110 z-10"
           onClick={prev}
         />
       )}
@@ -47,7 +47,12 @@ const Carousel = ({ cards }) => {
       <div className="flex flex-row gap-4">
         {/* Display the cards within the specified range */}
         {cards.slice(range.startRange, range.endRange).map((card, index) => (
-          <div key={index}>{card}</div>
+          <div
+            key={index}
+            className="transition-transform transform hover:scale-110"
+          >
+            {card}
+          </div>
         ))}
       </div>
 
@@ -55,7 +60,7 @@ const Carousel = ({ cards }) => {
       {range.endRange === cardsLength ? null : (
         <NavigateNextIcon
           fontSize="large"
-          className="text-white cursor-pointer self-center"
+          className="text-white cursor-pointer self-center absolute right-4 transition-transform transform hover:scale-110 z-10"
           onClick={next}
         />
       )}

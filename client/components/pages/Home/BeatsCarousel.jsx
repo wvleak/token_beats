@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import Carousel from "@components/atoms/carousel";
 import BeatCard from "@components/BeatCard/BeatCard";
 import useBeatInfo from "@utils/useBeatInfo";

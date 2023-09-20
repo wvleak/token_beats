@@ -1,9 +1,3 @@
-"use client";
-
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useStateContext } from "@context";
-
 import BeatCardLayout from "./BeatCardLayout";
 
 const BeatCard = ({ beat, onClick }) => {
