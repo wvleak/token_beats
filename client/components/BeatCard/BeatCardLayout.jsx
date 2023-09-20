@@ -3,27 +3,21 @@ import Tag from "@components/atoms/Tag";
 
 const BeatCardLayout = ({ producerInfo, beatInfo }) => {
   return (
-    <div className="w-[288px] bg-[#1c1c24] hover:shadow-2xl hover:shadow-gray-400 transition duration-200 cursor-pointer">
+    <div className="w-[288px] bg-[#1c1c24] hover:shadow-2xl hover:shadow-gray-400 transition duration-200 cursor-pointer rounded-md">
       {beatInfo.image ? (
-        <img src={beatInfo.image} className="w-full h-[288px] object-cover" />
+        <img
+          src={beatInfo.image}
+          className="w-full h-[288px] object-cover rounded-md"
+        />
       ) : (
         <img
           src="https://www.billboard.com/wp-content/uploads/media/kanye-west-the-life-of-pablo-album-2016-billboard-1024.jpg?w=1024"
           alt="beatImage"
-          className="w-full h-[288px] object-cover"
+          className="w-full h-[288px] object-cover rounded-md"
         />
       )}
 
       <div className="flex flex-col p-4">
-        <div className="flex flex-row items-center mb-[18px]">
-          {/* Render tags */}
-          <ul className="flex text-white">
-            {beatInfo.tags.map((tag, index) => (
-              <Tag tag={tag} index={index} input={false} key={index} />
-            ))}
-          </ul>
-        </div>
-
         <div className="block">
           {/* Render beat name */}
           <h3 className="font-epilogue font-semibold text-[16px] text-white text-left leading-[26px] truncate">
@@ -70,6 +64,14 @@ const BeatCardLayout = ({ producerInfo, beatInfo }) => {
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
               {beatInfo.usdPrice.toString()}$
             </p>
+          </div>
+          <div className="flex flex-row items-center mt-2">
+            {/* Render tags */}
+            <ul className="flex text-white">
+              {beatInfo.tags.map((tag, index) => (
+                <Tag tag={tag} index={index} input={false} key={index} />
+              ))}
+            </ul>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import {
 } from "@thirdweb-dev/react";
 import { contract_abi } from "@utils/contract_abi";
 import { useDisconnect } from "@thirdweb-dev/react";
+import axios from "axios";
 
 // Create a context to manage state and actions.
 const StateContext = createContext();
@@ -148,6 +149,32 @@ export const StateContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const fetchBeatInfo = async (beats) => {
+    const beatsInfoPromises = beats.map(async (beat) => {
+      const producerInfoResponse = await getUserProfile(beat.producer);
+      const producerInfo = {
+        ...producerInfoResponse,
+        address: beat.producer, // Add the address property
+      };
+      let tags = [];
+      const data = await getBeatTags(beat.name);
+      if (data) {
+        tags = data.tags;
+      }
+      const imageResponse = await axios.get(beat.uri); // Fetch the image
+      const supplyLeft = beat.maxSupply - beat.sales; // Calculate supplyLeft
+
+      return {
+        ...beat,
+        producerInfo,
+        tags,
+        image: imageResponse.data.image, // Add the image property
+        supplyLeft: supplyLeft, // Add the supplyLeft property
+      };
+    });
+
+    return beatsInfoPromises;
+  };
 
   return (
     <StateContext.Provider
@@ -165,6 +192,7 @@ export const StateContextProvider = ({ children }) => {
         getBeat,
         getEthPrice,
         getBeatTags,
+        fetchBeatInfo,
       }}
     >
       {children}

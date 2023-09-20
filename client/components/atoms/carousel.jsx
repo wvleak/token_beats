@@ -34,7 +34,7 @@ const Carousel = ({ cards }) => {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row h-[500px]">
       {/* Render the "Previous" button if there are previous cards */}
       {range.startRange === 0 ? null : (
         <NavigateBeforeIcon

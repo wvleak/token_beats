@@ -3,12 +3,14 @@ import { useRouter } from "next/navigation";
 import BeatCard from "../BeatCard/BeatCard";
 import Title from "../atoms/Title";
 import Loader from "../atoms/Loader";
+import useBeatInfo from "@utils/useBeatInfo";
 
 const DisplayBeats = ({ title, isLoading, beats }) => {
   const router = useRouter();
   const handleNavigate = (beat) => {
     router.push(`/beats/${beat.id}`);
   };
+  const beatsWithInfo = useBeatInfo(beats);
 
   return (
     <>
@@ -27,10 +29,10 @@ const DisplayBeats = ({ title, isLoading, beats }) => {
         {/* Beats display */}
         {!isLoading &&
           beats.length > 0 &&
-          beats.map((beat) => (
+          beatsWithInfo.map((beat) => (
             <BeatCard
               key={beat.beatId}
-              {...beat}
+              beat={beat}
               onClick={() => handleNavigate(beat)}
             />
           ))}

@@ -6,7 +6,7 @@ const Tag = ({ tag, index, input, onClick }) => {
   };
   return (
     <li key={index} className="bg-[#3a3a43] rounded-md mr-1 p-1 pl-2">
-      <span className="tag-title">{tag}</span>
+      <span className="tag-title">#{tag}</span>
       <span className="tag-close-icon" onClick={() => onClick(index)}>
         {input ? <CancelSharpIcon style={iconStyle} /> : null}
       </span>
