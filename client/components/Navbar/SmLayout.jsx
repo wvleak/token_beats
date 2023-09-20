@@ -41,9 +41,7 @@ const SmLayout = ({ toggleDrawer, toggle, connect, disconnect, address }) => {
                 : "bg-gradient-to-r from-pink-500 to-purple-600"
             }
             handleClick={() => {
-              if (
-                address //router.push("/sell");
-              );
+              if (address) router.push("/sell");
               else connect();
             }}
           />

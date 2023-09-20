@@ -26,22 +26,17 @@ const LgLayout = ({ address, connect, disconnect, user, router }) => {
                 <img
                   src="/assets/profile.jpg"
                   alt="user"
-                  className="w-[100%] h-[100%] rounded-full object-fit"
+                  className="w-[100%] h-[100%] rounded-full object-fit brightness-100 hover:brightness-50 transition duration-100"
                 />
               ) : (
                 <img
                   src={user.image}
                   alt="user"
-                  className="w-[100%] h-[100%] rounded-full object-fit"
+                  className="w-[100%] h-[100%] rounded-full object-fit brightness-100 hover:brightness-50 transition duration-100"
                 />
               )}
             </div>
           </Link>
-          {/* <img
-            src="assets/logout.svg"
-            onClick={disconnect}
-            className="items-center cursor-pointer"
-          /> */}
           <LogoutIcon
             onClick={disconnect}
             className="mt-4 cursor-pointer hover:text-gray-400"
