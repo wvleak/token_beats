@@ -15,26 +15,50 @@ const Carousel = ({ cards }) => {
 
   // Function to move to the next set of cards.
   const next = () => {
+    const remainingCards = cardsLength - range.endRange;
     if (range.endRange < cardsLength) {
-      setRange({
-        startRange: range.startRange + 1,
-        endRange: range.endRange + 1,
-      });
+      if (remainingCards > 2) {
+        setRange({
+          startRange: range.startRange + 2,
+          endRange: range.endRange + 2,
+        });
+      } else {
+        setRange({
+          startRange: range.startRange + remainingCards,
+          endRange: range.endRange + remainingCards,
+        });
+      }
+      // setRange({
+      //   startRange: range.startRange + 1,
+      //   endRange: range.endRange + 1,
+      // });
     }
   };
 
   // Function to move to the previous set of cards.
   const prev = () => {
+    //const remainingCards = cardsLength - range.startRange;
     if (range.startRange > 0) {
-      setRange({
-        startRange: range.startRange - 1,
-        endRange: range.endRange - 1,
-      });
+      if (range.startRange > 2) {
+        setRange({
+          startRange: range.startRange - 2,
+          endRange: range.endRange - 2,
+        });
+      } else {
+        setRange({
+          startRange: 0,
+          endRange: range.endRange - range.startRange,
+        });
+      }
+      // setRange({
+      //   startRange: range.startRange - 1,
+      //   endRange: range.endRange - 1,
+      // });
     }
   };
 
   return (
-    <div className="relative flex flex-row h-[500px]">
+    <div className="relative flex flex-row h-[550px] overflow-hidden p-8">
       {/* Render the "Previous" button if there are previous cards */}
       {range.startRange === 0 ? null : (
         <NavigateBeforeIcon
@@ -44,9 +68,15 @@ const Carousel = ({ cards }) => {
         />
       )}
 
-      <div className="flex flex-row gap-4">
+      <div
+        className="flex flex-row gap-4"
+        style={{
+          transform: `translateX(-${range.startRange * 10}%)`,
+          transition: "transform 0.3s ease",
+        }}
+      >
         {/* Display the cards within the specified range */}
-        {cards.slice(range.startRange, range.endRange).map((card, index) => (
+        {cards.map((card, index) => (
           <div
             key={index}
             className="transition-transform transform hover:scale-110"

@@ -65,14 +65,14 @@ const BeatCardLayout = ({ producerInfo, beatInfo }) => {
               {beatInfo.usdPrice.toString()}$
             </p>
           </div>
-          <div className="flex flex-row items-center mt-2">
-            {/* Render tags */}
-            <ul className="flex text-white">
-              {beatInfo.tags.map((tag, index) => (
-                <Tag tag={tag} index={index} input={false} key={index} />
-              ))}
-            </ul>
-          </div>
+        </div>
+        <div className="flex flex-row items-center mt-2">
+          {/* Render tags */}
+          <ul className="flex text-white">
+            {beatInfo.tags.map((tag, index) => (
+              <Tag tag={tag} index={index} input={false} key={index} />
+            ))}
+          </ul>
         </div>
       </div>
     </div>
