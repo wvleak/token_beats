@@ -8,7 +8,13 @@ const BeatsCarousel = ({ beats, onNavigation, isLoading }) => {
 
   return (
     <div className="mt-[100px] min-w-[500px] max-w-[1000px]">
-      <h1 className="text-white">{isLoading ? "Loading..." : "New beats"}</h1>
+      <h1 className="text-white">
+        {isLoading ? (
+          "Loading..."
+        ) : (
+          <span className="text-2xl">Last beats</span>
+        )}
+      </h1>
 
       <Carousel
         cards={beatsWithInfo.map((beat) => (

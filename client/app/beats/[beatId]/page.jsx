@@ -114,7 +114,7 @@ const BeatPage = ({ params }) => {
         transaction="Buy"
       />
       <BeatDetails beat={beat} image={image} producer={producer} tags={tags} />
-      <div className="flex-col w-[80%]">
+      <div className="flex-col w-[80%] self-start">
         <AudioSection url={audio} />
         <BuyingSection supply={supply} price={price} onSubmit={handleSubmit} />
       </div>
