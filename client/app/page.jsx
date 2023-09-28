@@ -48,6 +48,7 @@ const HomePage = () => {
           beats={beats}
           onNavigation={handleNavigate}
           isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       </section>
     </>

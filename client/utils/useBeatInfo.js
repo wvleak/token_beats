@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useStateContext } from "@context";
 
-function useBeatInfo(beats) {
+function useBeatInfo(beats, setIsLoading) {
   const { getUserProfile, getBeatTags } = useStateContext();
   const [beatsWithInfo, setBeatsWithInfo] = useState([]);
 
   useEffect(() => {
     const fetchBeatInfo = async () => {
+      setIsLoading(true);
       const beatsInfoPromises = beats.map(async (beat) => {
         const producerInfoResponse = await getUserProfile(beat.producer);
         const producerInfo = {
@@ -34,6 +35,7 @@ function useBeatInfo(beats) {
       // Wait for all beat info to be fetched
       const beatsWithFullInfo = await Promise.all(beatsInfoPromises);
       setBeatsWithInfo(beatsWithFullInfo);
+      setIsLoading(false);
     };
 
     fetchBeatInfo();

@@ -47,7 +47,12 @@ const Page = () => {
       <ProfileDisplay user={user} address={address} />
 
       {/* Display the user's beats */}
-      <DisplayBeats title="Your Beats" isLoading={isLoading} beats={beats} />
+      <DisplayBeats
+        title="Your Beats"
+        isLoading={isLoading}
+        beats={beats}
+        setIsLoading={setIsLoading}
+      />
     </>
   );
 };

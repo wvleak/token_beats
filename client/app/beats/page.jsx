@@ -69,7 +69,12 @@ const Beats = () => {
   return (
     <div>
       {/* Display the list of beats */}
-      <DisplayBeats title="All Beats" isLoading={isLoading} beats={beats} />
+      <DisplayBeats
+        title="All Beats"
+        isLoading={isLoading}
+        beats={beats}
+        setIsLoading={setIsLoading}
+      />
     </div>
   );
 };

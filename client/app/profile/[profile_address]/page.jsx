@@ -41,12 +41,13 @@ const SeeProfile = ({ params }) => {
   }, [params.profile_address, getUserProfile, user]);
 
   return (
-    <div>
+    <div className="w-full">
       <ProducerProfile user={user} params={params} />
       <DisplayBeats
         title="Producer Beats"
         isLoading={isLoading}
         beats={beats}
+        setIsLoading={setIsLoading}
       />
     </div>
   );
