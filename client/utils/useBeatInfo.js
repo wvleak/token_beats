@@ -34,7 +34,7 @@ function useBeatInfo(beats, setIsLoading) {
 
       // Wait for all beat info to be fetched
       const beatsWithFullInfo = await Promise.all(beatsInfoPromises);
-      setBeatsWithInfo(beatsWithFullInfo);
+      await setBeatsWithInfo(beatsWithFullInfo);
       setIsLoading(false);
     };
 

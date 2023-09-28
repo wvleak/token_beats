@@ -24,7 +24,7 @@ const DisplayBeats = ({ title, isLoading, beats, setIsLoading }) => {
         {/* No Beats display */}
         {!isLoading && beats.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
-            You have not created any beats yet
+            There is no beats yet
           </p>
         )}
 

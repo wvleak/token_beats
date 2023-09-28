@@ -3,7 +3,7 @@ import Tag from "@components/atoms/Tag";
 
 const BeatCardLayout = ({ producerInfo, beatInfo }) => {
   return (
-    <div className="w-[288px] bg-[#1c1c24] hover:shadow-2xl hover:shadow-gray-400 transition duration-200 cursor-pointer rounded-md">
+    <div className="w-[288px] bg-[#1c1c24] hover:shadow-2xl hover:shadow-[#ffffff52] transition duration-200 cursor-pointer rounded-md">
       {beatInfo.image ? (
         <img
           src={beatInfo.image}

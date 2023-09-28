@@ -5,9 +5,9 @@ import Tag from "@components/atoms/Tag";
 // The BeatDetails component displays details about a beat, including name, producer, image, and tags.
 const BeatDetails = ({ beat, image, producer, tags }) => {
   return (
-    <div className="flex flex-col gap-5 w-[350px] p-7 bg-[#3a3a4368] rounded-[10px]">
-      <img src={image} className="w-[288px]" alt="Beat Cover" />
-      <h1 className="text-white text-4xl">{beat.name}</h1>
+    <div className="flex flex-col gap-5 w-[350px] p-7 bg-[#3a3a4368] rounded-[10px] border border-[#35353d68]">
+      <img src={image} className="w-[288px] rounded-md" alt="Beat Cover" />
+      <h1 className="text-white text-3xl">{beat.name}</h1>
       <p className="text-gray-500 text-lg">Produced by:</p>
 
       <section className="flex gap-3">

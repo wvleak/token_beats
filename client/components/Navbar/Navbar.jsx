@@ -27,7 +27,7 @@ const Navbar = () => {
   }, [address]);
 
   return (
-    <nav className="flex justify-between w-full mb-16 pt-3 gap-10">
+    <nav className="flex justify-between w-full mb-16 pt-3 gap-10 sticky top-0 z-50 bg-black bg-opacity-90 backdrop-blur-md border-b border-[#1a1a1a]">
       <Logo />
       <SearchBar />
       <LgLayout

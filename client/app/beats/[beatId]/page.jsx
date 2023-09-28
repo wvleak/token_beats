@@ -9,6 +9,8 @@ import BeatDetails from "@components/pages/Beat/BeatDetails";
 import AudioSection from "@components/pages/Beat/AudioSection";
 import BuyingSection from "@components/pages/Beat/BuyingSection";
 import Modal from "@components/Displays/Modal";
+import SkeletonLoaderContainer from "@components/atoms/SkeletonLoader";
+import SkeletonLoadingInfo from "@components/pages/Beat/SkeletonLoadingInfo";
 
 const BeatPage = ({ params }) => {
   // Access required functions and data from the context
@@ -21,7 +23,8 @@ const BeatPage = ({ params }) => {
     getBeatTags,
   } = useStateContext();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isBuying, setIsBuying] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [beat, setBeat] = useState({});
   const [image, setImage] = useState("");
   const [producer, setProducer] = useState({ username: "", image: "" });
@@ -38,6 +41,7 @@ const BeatPage = ({ params }) => {
         const data = await getBeat(params.beatId);
         setBeat(data[0]);
       }
+      setIsLoading(false);
     };
     fetchBeat();
   }, [contract, params.beatId]);
@@ -90,9 +94,9 @@ const BeatPage = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ethPrice = await getEthPrice(price);
-    setIsLoading(true);
+    setIsBuying(true);
     const confirmation = await buyBeat(params.beatId, ethPrice.toString());
-    setIsLoading(false);
+    setIsBuying(false);
     setIsConfirmed(confirmation);
     toggleOpen();
   };
@@ -106,18 +110,33 @@ const BeatPage = ({ params }) => {
 
   return (
     <div className="flex items-center gap-5 w-full">
-      {isLoading && <LoadingScreen />}
-      <Modal
-        open={isOpen}
-        confirmed={isConfirmed}
-        onClose={toggleOpen}
-        transaction="Buy"
-      />
-      <BeatDetails beat={beat} image={image} producer={producer} tags={tags} />
-      <div className="flex-col w-[80%] self-start">
-        <AudioSection url={audio} />
-        <BuyingSection supply={supply} price={price} onSubmit={handleSubmit} />
-      </div>
+      {isBuying && <LoadingScreen />}
+      {isLoading ? (
+        <SkeletonLoadingInfo />
+      ) : (
+        <>
+          <Modal
+            open={isOpen}
+            confirmed={isConfirmed}
+            onClose={toggleOpen}
+            transaction="Buy"
+          />
+          <BeatDetails
+            beat={beat}
+            image={image}
+            producer={producer}
+            tags={tags}
+          />
+          <div className="flex-col w-[80%] self-start">
+            <AudioSection url={audio} />
+            <BuyingSection
+              supply={supply}
+              price={price}
+              onSubmit={handleSubmit}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

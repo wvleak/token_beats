@@ -23,7 +23,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="relative flex items-center w-[50%] max-w-[500px] sm:min-w-[200px] h-[45px] rounded-lg bg-dark-charcoal mt-5 ml-5 md:lg:mr-[30%]">
+    <div className="relative flex items-center w-[50%] max-w-[500px] sm:min-w-[200px] h-[45px] rounded-full bg-dark-charcoal mt-5 ml-5 md:lg:mr-[30%] border-solid border border-[#4b4b4b]">
       <img
         src="/assets/search.svg"
         className="absolute ml-2"
@@ -34,7 +34,7 @@ const SearchBar = () => {
         onKeyUp={handleInputKeyUp}
         onChange={handleInputChange}
         placeholder="Search for tags"
-        className="h-[50px] pl-10 bg-transparent w-full outline-none text-white"
+        className="h-[50px] pl-10 bg-transparent w-full outline-none text-white text-sm"
       />
     </div>
   );

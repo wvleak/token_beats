@@ -8,22 +8,26 @@ const BeatsCarousel = ({ beats, onNavigation, isLoading, setIsLoading }) => {
   const beatsWithInfo = useBeatInfo(beats, setIsLoading);
 
   return (
-    <div className="mt-[100px] min-w-[500px] max-w-[1000px]">
-      <h1 className="text-white text-2xl">Last beats</h1>
-
+    <div className="mt-[30px] min-w-[500px] max-w-[1000px]">
+      {/* <h1 className="text-white text-2xl">Last beats</h1> */}
+      {/* <h1 className="text-white text-[40px] mt-5 ">Latest Releases</h1> */}
       {isLoading ? (
-        <SkeletonLoader count={3} />
+        <>
+          <SkeletonLoader count={3} />
+        </>
       ) : (
-        <Carousel
-          cards={beatsWithInfo.map((beat) => (
-            // Render BeatCard component for each beat with full info
-            <BeatCard
-              key={beat.id}
-              beat={beat}
-              onClick={() => onNavigation(beat)}
-            />
-          ))}
-        />
+        <>
+          <Carousel
+            cards={beatsWithInfo.map((beat) => (
+              // Render BeatCard component for each beat with full info
+              <BeatCard
+                key={beat.id}
+                beat={beat}
+                onClick={() => onNavigation(beat)}
+              />
+            ))}
+          />
+        </>
       )}
     </div>
   );

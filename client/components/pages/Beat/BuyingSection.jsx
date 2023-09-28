@@ -10,7 +10,7 @@ import MicExternalOnIcon from "@mui/icons-material/MicExternalOn";
 // The BuyingSection component displays details about supply, price, and usage terms.
 const BuyingSection = ({ supply, price, onSubmit }) => {
   return (
-    <div className="max-w-[800px] mt-8 flex flex-col bg-[#3a3a4368] rounded-[10px] p-5 gap-5 divide-y divide-zinc-500">
+    <div className="max-w-[800px] mt-8 flex flex-col bg-[#3a3a4368] rounded-[10px] p-5 gap-5 divide-y divide-zinc-500 border border-[#35353d68]">
       <div className="max-w-[800px] flex justify-between">
         {/* Display supply information */}
         <section className="flex flex-col items-center gap-2">

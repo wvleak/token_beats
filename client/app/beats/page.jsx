@@ -10,7 +10,7 @@ const Beats = () => {
 
   const tags = searchParams.get("tags");
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [beats, setBeats] = useState([]);
   const [allBeats, setAllBeats] = useState([]);
 

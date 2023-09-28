@@ -24,10 +24,8 @@ const RootLayout = ({ children }) => {
           activeChain={Sepolia}
         >
           <StateContextProvider>
-            <main className="app">
-              <Navbar />
-              {children}
-            </main>
+            <Navbar />
+            <main className="app">{children}</main>
           </StateContextProvider>
         </ThirdwebProvider>
       </body>

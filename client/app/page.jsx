@@ -13,15 +13,15 @@ const HomePage = () => {
   const router = useRouter();
 
   // Initialize state variables
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [beats, setBeats] = useState([]);
 
   // Fetch the latest beats from the contract
   const fetchBeats = async () => {
-    setIsLoading(true);
+    //setIsLoading(true);
     const data = await getLastBeats();
     setBeats(data);
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   // Use useEffect to trigger fetching beats when contract or address changes
@@ -44,12 +44,17 @@ const HomePage = () => {
     <>
       <section className="flex flex-col gap-8 items-center">
         <Hero onClick={handleClick} address={address} />
-        <BeatsCarousel
-          beats={beats}
-          onNavigation={handleNavigate}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-        />
+        <div className="bg-[#0202023b] w-screen border-y border-[#131313] mt-10">
+          <h1 className="text-white text-[32px] mt-5 ml-10">Latest Releases</h1>
+          <div className="flex flex-col items-center">
+            <BeatsCarousel
+              beats={beats}
+              onNavigation={handleNavigate}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
+          </div>
+        </div>
       </section>
     </>
   );
