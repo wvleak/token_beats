@@ -17,6 +17,7 @@
     "@mui/material": "^5.14.9",
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
+    "@types/lokijs": "^1.5.10",
     "axios": "^1.4.0",
     "ethers": "^5",
     "ipfs-http-client": "^60.0.1",
