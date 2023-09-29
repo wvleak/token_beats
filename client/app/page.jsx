@@ -3,8 +3,8 @@
 import { useStateContext } from "@context";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import BeatsCarousel from "../components/pages/Home/BeatsCarousel";
-import Hero from "../components/pages/Home/Hero";
+import BeatsCarousel from "../components/SpecificPage/Home/BeatsCarousel";
+import Hero from "../components/SpecificPage/Home/Hero";
 
 // Define the HomePage component
 const HomePage = () => {

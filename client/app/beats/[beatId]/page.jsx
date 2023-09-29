@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import LoadingScreen from "@components/Displays/LoadingScreen";
-import BeatDetails from "@components/pages/Beat/BeatDetails";
-import AudioSection from "@components/pages/Beat/AudioSection";
-import BuyingSection from "@components/pages/Beat/BuyingSection";
+import BeatDetails from "@components/SpecificPage/Beat/BeatDetails";
+import AudioSection from "@components/SpecificPage/Beat/AudioSection";
+import BuyingSection from "@components/SpecificPage/Beat/BuyingSection";
 import Modal from "@components/Displays/Modal";
-import SkeletonLoadingInfo from "@components/pages/Beat/SkeletonLoadingInfo";
+import SkeletonLoadingInfo from "@components/SpecificPage/Beat/SkeletonLoadingInfo";
 
 const BeatPage = ({ params }) => {
   // Access required functions and data from the context

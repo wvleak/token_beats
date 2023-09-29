@@ -4,7 +4,7 @@ import { useStateContext } from "../../context";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import LoadingScreen from "@components/Displays/LoadingScreen";
 import Title from "@components/atoms/Title";
-import SellForm from "@components/pages/Sell/SellForm";
+import SellForm from "@components/SpecificPage/Sell/SellForm";
 import Modal from "@components/Displays/Modal";
 
 const SellBeats = () => {

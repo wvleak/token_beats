@@ -1,6 +1,6 @@
 import FormField from "@components/atoms/FormField";
 import CustomButton from "@components/atoms/CustomButton";
-import TagInput from "@components/pages/Sell/TagInput";
+import TagInput from "@components/SpecificPage/Sell/TagInput";
 
 const SellForm = ({
   onFormFieldChange,

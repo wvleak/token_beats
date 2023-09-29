@@ -3,7 +3,7 @@
 import DisplayBeats from "@components/Displays/DisplayBeats";
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
-import ProfileDisplay from "@components/pages/Profile/ProfileDisplay";
+import ProfileDisplay from "@components/SpecificPage/Profile/ProfileDisplay";
 
 const Page = () => {
   // Initialize state and context

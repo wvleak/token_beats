@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useStateContext } from "@context";
 import DisplayBeats from "@components/Displays/DisplayBeats";
-import ProducerProfile from "@components/pages/Profile/ProducerProfile";
+import ProducerProfile from "@components/SpecificPage/Profile/ProducerProfile";
 
 const SeeProfile = ({ params }) => {
   // Access required functions and data from the context
