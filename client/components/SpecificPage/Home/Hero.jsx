@@ -15,7 +15,6 @@ const Hero = ({ onClick, address }) => {
                 : "bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent text-center"
             }
           >
-            {" "}
             Token Type-Beats
           </span>
         </h1>
