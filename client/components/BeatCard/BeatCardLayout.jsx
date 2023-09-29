@@ -68,7 +68,7 @@ const BeatCardLayout = ({ producerInfo, beatInfo }) => {
         </div>
         <div className="flex flex-row items-center mt-2">
           {/* Render tags */}
-          <ul className="flex text-white">
+          <ul className="flex flex-wrap gap-y-1 text-white">
             {beatInfo.tags.map((tag, index) => (
               <Tag tag={tag} index={index} input={false} key={index} />
             ))}

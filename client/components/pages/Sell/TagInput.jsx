@@ -29,7 +29,6 @@ const TagInput = ({ tags, addTags, removeTags }) => {
             ))}
           </ul>
           <input
-            required
             type="text"
             onKeyDown={handleInputKeyDown}
             placeholder="Press Enter to Add Tags"

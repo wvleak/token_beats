@@ -10,10 +10,11 @@ import Modal from "@components/Displays/Modal";
 const SellBeats = () => {
   // State for loading indicator
   const [isLoading, setIsLoading] = useState(false);
+  const [ipfsLoading, setIpfsLoading] = useState(false);
 
   // IPFS configuration
-  const projectId = "2SFF4D03ldKvI9gk6ujC2pQraVi";
-  const projectSecret = "45b64f101091b1c06c24ee6d78ba7fc7";
+  const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+  const projectSecret = process.env.NEXT_PUBLIC_PROJECT_SECRET;
   const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
   const ipfs = ipfsHttpClient({
     url: "https://ipfs.infura.io:5001",
@@ -28,7 +29,9 @@ const SellBeats = () => {
   // Handle file upload
   const handleFileUpload = async (fieldname, e) => {
     const file = e.target.files[0];
+    setIpfsLoading(true);
     const result = await ipfs.add(file);
+    setIpfsLoading(false);
     setFiles({ ...files, [fieldname]: result.path });
   };
 
@@ -125,7 +128,8 @@ const SellBeats = () => {
 
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-      {isLoading && <LoadingScreen />}
+      {isLoading && <LoadingScreen text="Transaction is in progress" />}
+      {ipfsLoading && <LoadingScreen text="Adding file to IPFS" />}
       <Modal
         open={isOpen}
         confirmed={isConfirmed}

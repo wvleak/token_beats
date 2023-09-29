@@ -16,7 +16,7 @@ const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
   // Get the contract instance and methods.
   const { contract } = useContract(
-    "0xD9fb74600770eB942f34BF455031f1F3Ba754871",
+    "0x27FFb4Fd562158A92ae91Db1bD7760a7d2b27E2e",
     contract_abi
   );
   const { mutateAsync: listBeat, isLoading } = useContractWrite(

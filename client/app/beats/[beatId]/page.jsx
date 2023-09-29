@@ -9,7 +9,6 @@ import BeatDetails from "@components/pages/Beat/BeatDetails";
 import AudioSection from "@components/pages/Beat/AudioSection";
 import BuyingSection from "@components/pages/Beat/BuyingSection";
 import Modal from "@components/Displays/Modal";
-import SkeletonLoaderContainer from "@components/atoms/SkeletonLoader";
 import SkeletonLoadingInfo from "@components/pages/Beat/SkeletonLoadingInfo";
 
 const BeatPage = ({ params }) => {
@@ -110,7 +109,7 @@ const BeatPage = ({ params }) => {
 
   return (
     <div className="flex items-center gap-5 w-full">
-      {isBuying && <LoadingScreen />}
+      {isBuying && <LoadingScreen text="Transaction is in progress" />}
       {isLoading ? (
         <SkeletonLoadingInfo />
       ) : (

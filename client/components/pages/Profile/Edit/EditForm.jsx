@@ -21,7 +21,7 @@ const EditForm = ({ onSubmit, onFormFieldChange, username }) => {
         <CustomButton
           btnType="submit"
           title="submit"
-          styles="bg-[#1dc071] text-white"
+          styles="bg-[#EE5B2F] text-white"
         />
       </div>
     </form>

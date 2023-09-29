@@ -2,7 +2,6 @@ import { useRouter } from "next/navigation";
 
 import BeatCard from "../BeatCard/BeatCard";
 import Title from "../atoms/Title";
-import Loader from "../atoms/Loader";
 import useBeatInfo from "@utils/useBeatInfo";
 import SkeletonLoader from "@components/atoms/SkeletonLoader";
 
