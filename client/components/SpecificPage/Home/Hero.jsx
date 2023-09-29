@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 
 // The Hero component displays a hero section with a title and a button.
 const Hero = ({ onClick, address }) => {
@@ -35,9 +35,11 @@ const Hero = ({ onClick, address }) => {
           className="relative px-7 py-4 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600"
         >
           <span className="flex items-center space-x-5">
-            <img
+            <Image
               src="/assets/logo-svg.svg"
               alt="logo"
+              width={50}
+              height={50}
               className="object-contain max-w-[50px] h-auto"
             />
             <span className="pr-6 text-gray-100"> Explore Beats</span>
