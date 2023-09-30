@@ -6,6 +6,7 @@ import LoadingScreen from "@components/Displays/LoadingScreen";
 import Title from "@components/atoms/Title";
 import SellForm from "@components/SpecificPage/Sell/SellForm";
 import Modal from "@components/Displays/Modal";
+import axios from "axios";
 
 const SellBeats = () => {
   // State for loading indicator
@@ -98,9 +99,17 @@ const SellBeats = () => {
 
     // Add beat and tags to the database
     try {
-      const response = await fetch("/api/beats/new", {
-        method: "POST",
-        body: JSON.stringify({
+      // const response = await fetch("/api/beats/new", {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     title: form.title,
+      //     tags: tags,
+      //   }),
+      // });
+      const response = await axios({
+        method: "post",
+        url: "/api/beats/new",
+        data: JSON.stringify({
           title: form.title,
           tags: tags,
         }),
