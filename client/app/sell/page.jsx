@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useStateContext } from "../../context";
+//import { useStateContext } from "../../context";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import LoadingScreen from "@components/Displays/LoadingScreen";
 import Title from "@components/atoms/Title";
@@ -50,7 +50,7 @@ const SellBeats = () => {
   };
 
   // Access the context to use functions
-  const { publishBeat } = useStateContext();
+  //const { publishBeat } = useStateContext();
 
   // State for confirmation modal
   const [isConfirmed, setIsConfirmed] = useState(null);
@@ -95,7 +95,7 @@ const SellBeats = () => {
     setIsLoading(true);
 
     // Publish the beat and get confirmation
-    const confirmation = await publishBeat({ ...form, uri: uri });
+    const confirmation = true; //await publishBeat({ ...form, uri: uri });
 
     // Add beat and tags to the database
     // try {
