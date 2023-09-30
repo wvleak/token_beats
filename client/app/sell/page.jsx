@@ -98,29 +98,29 @@ const SellBeats = () => {
     const confirmation = await publishBeat({ ...form, uri: uri });
 
     // Add beat and tags to the database
-    try {
-      // const response = await fetch("/api/beats/new", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     title: form.title,
-      //     tags: tags,
-      //   }),
-      // });
-      const response = await axios({
-        method: "post",
-        url: "/api/beats/new",
-        data: JSON.stringify({
-          title: form.title,
-          tags: tags,
-        }),
-      });
+    // try {
+    //   // const response = await fetch("/api/beats/new", {
+    //   //   method: "POST",
+    //   //   body: JSON.stringify({
+    //   //     title: form.title,
+    //   //     tags: tags,
+    //   //   }),
+    //   // });
+    //   const response = await axios({
+    //     method: "post",
+    //     url: "/api/beats/new",
+    //     data: JSON.stringify({
+    //       title: form.title,
+    //       tags: tags,
+    //     }),
+    //   });
 
-      if (response.ok) {
-        console.log("Beat added successfully to the database.");
-      }
-    } catch (error) {
-      console.log("Error while adding beat to the database:", error);
-    }
+    //   if (response.ok) {
+    //     console.log("Beat added successfully to the database.");
+    //   }
+    // } catch (error) {
+    //   console.log("Error while adding beat to the database:", error);
+    // }
 
     setIsLoading(false);
     setIsConfirmed(confirmation);
