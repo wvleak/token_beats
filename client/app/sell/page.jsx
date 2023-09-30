@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 //import { useStateContext } from "../../context";
-import { create as ipfsHttpClient } from "ipfs-http-client";
+//import { create as ipfsHttpClient } from "ipfs-http-client";
 import LoadingScreen from "@components/Displays/LoadingScreen";
 import Title from "@components/atoms/Title";
 import SellForm from "@components/SpecificPage/Sell/SellForm";
@@ -14,26 +14,26 @@ const SellBeats = () => {
   const [ipfsLoading, setIpfsLoading] = useState(false);
 
   // IPFS configuration
-  const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
-  const projectSecret = process.env.NEXT_PUBLIC_PROJECT_SECRET;
-  const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
-  const ipfs = ipfsHttpClient({
-    url: "https://ipfs.infura.io:5001",
-    headers: {
-      authorization,
-    },
-  });
+  // const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+  // const projectSecret = process.env.NEXT_PUBLIC_PROJECT_SECRET;
+  // const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
+  // const ipfs = ipfsHttpClient({
+  //   url: "https://ipfs.infura.io:5001",
+  //   headers: {
+  //     authorization,
+  //   },
+  // });
 
   // State for uploaded files
   const [files, setFiles] = useState({ image: "", audio: "" });
 
   // Handle file upload
   const handleFileUpload = async (fieldname, e) => {
-    const file = e.target.files[0];
-    setIpfsLoading(true);
-    const result = await ipfs.add(file);
-    setIpfsLoading(false);
-    setFiles({ ...files, [fieldname]: result.path });
+    // const file = e.target.files[0];
+    // setIpfsLoading(true);
+    // const result = await ipfs.add(file);
+    // setIpfsLoading(false);
+    // setFiles({ ...files, [fieldname]: result.path });
   };
 
   // State for form data
@@ -75,37 +75,31 @@ const SellBeats = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prepare NFT metadata
-    const nftMetadata = {
-      name: form.title,
-      description: "Token Type Beat",
-      image: "https://tokenbeat.infura-ipfs.io/ipfs/" + files.image,
-      animation_url: "https://tokenbeat.infura-ipfs.io/ipfs/" + files.audio,
-    };
+    // // Prepare NFT metadata
+    // const nftMetadata = {
+    //   name: form.title,
+    //   description: "Token Type Beat",
+    //   image: "https://tokenbeat.infura-ipfs.io/ipfs/" + files.image,
+    //   animation_url: "https://tokenbeat.infura-ipfs.io/ipfs/" + files.audio,
+    // };
 
-    // Convert metadata to JSON
-    const jsonMetadata = JSON.stringify(nftMetadata);
+    // // Convert metadata to JSON
+    // const jsonMetadata = JSON.stringify(nftMetadata);
 
-    // Add metadata to IPFS
-    const result = await ipfs.add(jsonMetadata);
+    // // Add metadata to IPFS
+    // const result = await ipfs.add(jsonMetadata);
 
-    // Construct the URI for metadata
-    const uri = "https://tokenbeat.infura-ipfs.io/ipfs/" + result.path;
+    // // Construct the URI for metadata
+    // const uri = "https://tokenbeat.infura-ipfs.io/ipfs/" + result.path;
 
-    setIsLoading(true);
+    // setIsLoading(true);
 
     // Publish the beat and get confirmation
     const confirmation = true; //await publishBeat({ ...form, uri: uri });
 
     // Add beat and tags to the database
     // try {
-    //   // const response = await fetch("/api/beats/new", {
-    //   //   method: "POST",
-    //   //   body: JSON.stringify({
-    //   //     title: form.title,
-    //   //     tags: tags,
-    //   //   }),
-    //   // });
+
     //   const response = await axios({
     //     method: "post",
     //     url: "/api/beats/new",

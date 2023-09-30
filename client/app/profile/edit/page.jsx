@@ -47,9 +47,10 @@ const Profile = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch("/api/profile/edit", {
+      const response = await axios({
         method: "POST",
-        body: JSON.stringify({
+        url: "/api/profile/edit",
+        data: JSON.stringify({
           address: address,
           username: profile.username,
           image: profile.image,

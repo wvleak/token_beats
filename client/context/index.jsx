@@ -121,9 +121,7 @@ export const StateContextProvider = ({ children }) => {
   // Function to get user profile data based on the address.
   const getUserProfile = async (userAddress) => {
     try {
-      const response = await fetch(`/api/profile/${userAddress}`, {
-        method: "GET",
-      });
+      const response = await axios(`/api/profile/${userAddress}`);
 
       if (response.ok) {
         const data = await response.json();
@@ -137,9 +135,7 @@ export const StateContextProvider = ({ children }) => {
   // Function to get beat tags based on the title.
   const getBeatTags = async (title) => {
     try {
-      const response = await fetch(`/api/beats/${title}`, {
-        method: "GET",
-      });
+      const response = await axios(`/api/beats/${title}`);
 
       if (response.ok) {
         const data = await response.json();

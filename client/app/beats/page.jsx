@@ -51,9 +51,7 @@ const Beats = () => {
   // Function to get tags from the API
   const getTags = async (input) => {
     try {
-      const response = await fetch(`/api/beats/tags/${input}`, {
-        method: "GET",
-      });
+      const response = await axios(`/api/beats/tags/${input}`);
 
       if (response.ok) {
         const data = await response.json();
