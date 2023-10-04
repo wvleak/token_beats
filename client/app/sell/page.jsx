@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useStateContext } from "../../context";
-import { create as ipfsHttpClient } from "ipfs-http-client";
+//import { create as ipfsHttpClient } from "ipfs-http-client";
 import LoadingScreen from "@components/Displays/LoadingScreen";
 import Title from "@components/atoms/Title";
 import SellForm from "@components/SpecificPage/Sell/SellForm";
@@ -13,26 +13,26 @@ const SellBeats = () => {
   const [ipfsLoading, setIpfsLoading] = useState(false);
 
   // IPFS configuration
-  const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
-  const projectSecret = process.env.NEXT_PUBLIC_PROJECT_SECRET;
-  const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
-  const ipfs = ipfsHttpClient({
-    url: "https://ipfs.infura.io:5001",
-    headers: {
-      authorization,
-    },
-  });
+  // const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+  // const projectSecret = process.env.NEXT_PUBLIC_PROJECT_SECRET;
+  // const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
+  // const ipfs = ipfsHttpClient({
+  //   url: "https://ipfs.infura.io:5001",
+  //   headers: {
+  //     authorization,
+  //   },
+  // });
 
   // State for uploaded files
   const [files, setFiles] = useState({ image: "", audio: "" });
 
   // Handle file upload
   const handleFileUpload = async (fieldname, e) => {
-    const file = e.target.files[0];
-    setIpfsLoading(true);
-    const result = await ipfs.add(file);
-    setIpfsLoading(false);
-    setFiles({ ...files, [fieldname]: result.path });
+    // const file = e.target.files[0];
+    // setIpfsLoading(true);
+    // const result = await ipfs.add(file);
+    // setIpfsLoading(false);
+    // setFiles({ ...files, [fieldname]: result.path });
   };
 
   // State for form data
