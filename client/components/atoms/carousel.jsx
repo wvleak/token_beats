@@ -28,10 +28,6 @@ const Carousel = ({ cards }) => {
           endRange: range.endRange + remainingCards,
         });
       }
-      // setRange({
-      //   startRange: range.startRange + 1,
-      //   endRange: range.endRange + 1,
-      // });
     }
   };
 
@@ -50,10 +46,6 @@ const Carousel = ({ cards }) => {
           endRange: range.endRange - range.startRange,
         });
       }
-      // setRange({
-      //   startRange: range.startRange - 1,
-      //   endRange: range.endRange - 1,
-      // });
     }
   };
 
@@ -71,7 +63,7 @@ const Carousel = ({ cards }) => {
       <div
         className="flex flex-row gap-4"
         style={{
-          transform: `translateX(-${range.startRange * 10}%)`,
+          transform: `translateX(-${range.startRange * 300}px)`,
           transition: "transform 0.3s ease",
         }}
       >
